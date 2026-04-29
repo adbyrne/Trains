@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Station_OS",
+			"path": "IOTtrains/Station_OS"
+		}
+	],
+	"settings": {}
+}

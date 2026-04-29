@@ -3,6 +3,13 @@ CADlayout/
 CADtrains/
 IOTtrains/
 
+# Claude Code working directory (local settings, one-time scripts)
+.claude/
+
+# Editor config
+.vscode/
+.theia/
+
 # Editor / OS
 .DS_Store
 *~
