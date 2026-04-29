@@ -1,0 +1,9 @@
+# Sub-projects have their own independent git repos — not tracked here
+CADlayout/
+CADtrains/
+IOTtrains/
+
+# Editor / OS
+.DS_Store
+*~
+*.swp
