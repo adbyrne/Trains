@@ -14,3 +14,6 @@ IOTtrains/
 .DS_Store
 *~
 *.swp
+
+# Reference archive — binary files, 250MB, not for git
+NYELayoutDocs/
