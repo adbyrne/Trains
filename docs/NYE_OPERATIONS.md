@@ -9,7 +9,7 @@
 
 ## 1. Railroad Identity
 
-**Road name:** NY&E Railroad _(full name TBD)_
+**Road name:** New York and Eastern Railroad (NY&E)
 **Subdivision:** Northern Lights Subdivision
 **Timetable reference:** No. 4, December 31, 1904 — `Documents/Layout/modelrr/timetable4.pdf`
 
@@ -34,8 +34,9 @@ Point-to-point, single main track, south to north. All stations have passing sid
 
 ### Track Plan
 **Software:** XTrackCAD (`https://sourceforge.net/projects/xtrkcad-fork/`)
-**Status:** Previous layout file exists (close approximation); new file for current layout needed.
-**File location:** _(TBD — create and store in `Trains/docs/` or `Trains/` root)_
+**Status:** Layout remodel in progress — current file is ~90% the same as previous layout; new industries and station ideas may be incorporated as remodel proceeds.
+**File location:** `~/XTrkCAD/nyelayout/layout.xtc` — room 18'×25.4', 78 turnouts, 312.6 ft mainline. Reports in same directory.
+**Previous layout archive:** `Trains/NYELayoutDocs/` — XTrackCAD files, old timetable, string tables, dispatcher docs, waybills.
 
 ---
 
@@ -163,6 +164,15 @@ _Derived from Timetable No. 4 and NY&E operating history._
 - Freight trains must move caboose to the other end of the train when changing direction at a station
 - OS report submitted at each station on arrival and departure (train number, section, direction)
 
+### Switchback OS Rule
+
+Switchback stations (Xina Pass, Quilly Mine #3, and others with dual mileposts) require the train to reverse and swap engine/caboose positions before continuing. The OS rule depends on whether the train has work at that location:
+
+- **No work:** Train is **not OS until engine and caboose are reconnected** after the reversal. Station agent submits the OS report at that point.
+- **Work to be done:** Train OSs **on arrival** (before reversal). Train must **take the siding immediately on arrival**. OS is not re-submitted after reconnection.
+
+The station agent CYD will display a reminder at switchback stations to prompt the correct procedure.
+
 ### C&O Interchange at Williamsport
 - WP yard is shared with C&O East Central trains
 - Yardmaster must keep the main clear for C&O through trains
@@ -182,7 +192,7 @@ _Derived from Timetable No. 4 and NY&E operating history._
 | Station Fig. 172 (NH combo) | `Trains/SmallStation.png` | Station design prototype |
 | Layout Control System | `Trains/IOTtrains/docs/SYSTEM_ARCHITECTURE.md` | IoT control architecture |
 | MQTT Specification | `Trains/IOTtrains/docs/MQTT_SPEC.md` | IoT messaging reference |
-| XTrackCAD layout file | TBD | Track plan — new file needed |
+| XTrackCAD layout file | `~/XTrkCAD/nyelayout/layout.xtc` | Track plan — in progress, ~90% of final layout |
 | Previous layout archive | `Trains/NYELayoutDocs/` | XTrackCAD files, old ops documents, timetable source data |
 | Implementation Plan | `Trains/IOTtrains/docs/IMPLEMENTATION_PLAN.md` | Session-by-session build plan |
 
