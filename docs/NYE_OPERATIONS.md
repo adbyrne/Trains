@@ -107,29 +107,117 @@ The timetable also covers the **C&O East Central Subdivision** through Williamsp
 
 ## 5. Motive Power
 
-_To be documented. Circa 1905 C&O prototype steam._
+Ten steam locomotives on the active roster. All NY&E road engines are Bachmann HO. C&O #1592 (interchange visitor) and Pennsylvania #1492 (joint runs) are foreign road units.
 
-| Road # | Class / Type | Assignment | Notes |
-|--------|-------------|------------|-------|
-| TBD | | | |
+| Road # | Type | Road Name | Max Cars | DCC Addr | Manufacturer | Sound |
+|--------|------|-----------|----------|----------|--------------|-------|
+| 10 | 0-6-0 | NY&E | 6 | 10 | Bachmann | No |
+| 11 | 0-6-0 | NY&E | 6 | 11 | Bachmann | No |
+| 12 | 0-6-0 | NY&E | 6 | 12 | Bachmann | No |
+| 14 | 0-6-0 | NY&E | 6 | 14 | Bachmann | No |
+| 21 | 4-4-0 | NY&E | 6 | 21 | Bachmann | Yes |
+| 22 | 4-4-0 | NY&E | 6 | 22 | Bachmann | Yes |
+| 30 | 2-6-0 | NY&E | 6 | 30 | IHC | No |
+| 46 | 4-6-0 | NY&E | 6 | 46 | Bachmann | No |
+| 1492 | 4-4-0 | Pennsylvania | 6 | 20 | IHC | No |
+| 1592 | 2-6-6-2 | C&O | 12 | 66 | Bachmann | Yes |
 
 ---
 
 ## 6. Car Inventory
 
-_To be documented._
+94 freight cars on the active roster. Each car is individually tracked for maintenance. Car type codes follow AAR classification.
 
-### Freight
-| Car Type | Road | Qty | Service |
-|----------|------|-----|---------|
-| TBD | | | |
+### Boxcars (XM) — 14 cars
 
-### Passenger
-| Car Type | Road | Qty | Service |
-|----------|------|-----|---------|
-| TBD | | | |
+| Code | Road Name | Road # | Color | Length |
+|------|-----------|--------|-------|--------|
+| XM | QA&P Rwy | 115 | Brown | 36' |
+| XM | StL S_W | 16794 | Brown | 36' |
+| XM | Penn. Lines | 559941 | Brown | 36' |
+| XM | Penn. Lines | 559946 | Brown | 36' |
+| XM | NKP | 10755 | Brown | 36' |
+| XM | NKP | 10580 | Brown | 36' |
+| XM | D&H Co | 19258 | Brown | 36' |
+| XM | M,SP&SSM | 14825 | Brown | 36' |
+| XM | CM | 5347 | Brown | 36' |
+| XM | D&RG | 63494 | Brown | 36' |
+| XM | IP&C RW | 2 | Brown | 36' |
+| XM | SP | 12778 | Brown | 36' |
+| XM | CCC&STL | 4744 | Brown | 36' |
+| XM | CCC&STL | 4748 | Brown | 36' |
+
+### Reefers (RS) — 14 cars
+
+| Code | Road Name | Road # | Color | Length |
+|------|-----------|--------|-------|--------|
+| RS | Sudbury | 105 | Brown | 36' |
+| RS | HERX | 731 | Brown | 36' |
+| RS | DSDX | 149 | Green | 36' |
+| RS | DSDX | 1490 | Green | 36' |
+| RS | Illinois Central | 55401 | Yellow | 36' |
+| RS | Boston & Maine | 12749 | Yellow | 36' |
+| RS | URTCo | 91021 | Yellow | 36' |
+| RS | URTCo | 40680 | Yellow | 36' |
+| RS | URTCo | 40676 | Yellow | 36' |
+| RS | NADX | 2652 | White | 36' |
+| RS | AMSX | 12028 | White | 36' |
+| RS | CKKX | 2661 | Red | 36' |
+| RS | GPEX | 908 | Brown | 36' |
+| RS | LBPX | 102 | Blue | 36' |
+
+### Stock Cars (SM) — 3 cars
+
+| Code | Road Name | Road # | Color | Length |
+|------|-----------|--------|-------|--------|
+| SM | CC&O | 2723 | Brown | 36' |
+| SM | CC&O | 2748 | Brown | 36' |
+| SM | GN | 7530 | Brown | 36' |
+
+### Flat Cars (FM) — 39 cars
+
+All NY&E road, black, 32'.
+
+| Code | Road # | Code | Road # | Code | Road # |
+|------|--------|------|--------|------|--------|
+| FM | 900 | FM | 920 | FM | 940 |
+| FM | 901 | FM | 923 | FM | 941 |
+| FM | 902 | FM | 924 | FM | 942 |
+| FM | 903 | FM | 925 | FM | 943 |
+| FM | 904 | FM | 927 | FM | 944 |
+| FM | 905 | FM | 928 | FM | 945 |
+| FM | 908 | FM | 930 | FM | 947 |
+| FM | 914 | FM | 931 | FM | 948 |
+| FM | 915 | FM | 932 | FM | 950 |
+| — | — | FM | 933 | FM | 951 |
+| — | — | FM | 934 | FM | 952 |
+| — | — | FM | 935 | FM | 953 |
+| — | — | FM | 937 | FM | 954 |
+| — | — | FM | 938 | FM | 955 |
+| — | — | — | — | FM | 957 |
+| — | — | — | — | FM | 958 |
+
+### Hoppers (HM) — 24 cars
+
+All NY&E road, black, 22'.
+
+| Code | Road # | Code | Road # | Code | Road # |
+|------|--------|------|--------|------|--------|
+| HM | 110 | HM | 120 | HM | 135 |
+| HM | 113 | HM | 123 | HM | 136 |
+| HM | 114 | HM | 124 | HM | 137 |
+| HM | 115 | HM | 125 | HM | 138 |
+| HM | 116 | HM | 126 | HM | 140 |
+| HM | 117 | HM | 127 | HM | 145 |
+| HM | 118 | HM | 128 | HM | 147 |
+| HM | 119 | HM | 130 | — | — |
+
+### Passenger Cars
+
+No passenger cars currently on the roster.
 
 ### Work Equipment
+
 | Type | Notes |
 |------|-------|
 | TBD | |
@@ -345,3 +433,28 @@ All materials below are printed by the owner before each session as needed:
 - Waybills (session cycle)
 - Train Register forms (blank, per station — formal paper record of all train movements)
 - Train order pads (blank forms for crew copies of Train Orders)
+
+### Equipment Maintenance
+
+Maintenance is a management function performed by the layout owner between operating sessions. Intervals are counted in operating sessions, not calendar time.
+
+**Inspection Schedules**
+
+Locomotives and freight cars follow separate inspection schedules. Specific intervals are TBD and will be set once operating cadence is established.
+
+| Equipment Class | Inspection Interval | Minimum Checks |
+|----------------|---------------------|----------------|
+| Steam locomotives | TBD sessions | Wheels/axles, motor brushes, drive gear lubrication, lamp function, DCC decoder address/function verify |
+| Freight cars | TBD sessions | Wheels/axles (rotation, gauge, no flat spots), couplers (operation, spring tension), trucks (free swing) |
+
+**Bad Order Process**
+
+Equipment is placed **Bad Order** when a defect is found during an operating session or inspection. Bad order equipment is pulled from service immediately and not assigned to consists until released by the owner.
+
+1. **Defect reported** — road crew reports defect verbally to Yardmaster at the next station stop
+2. **Equipment pulled** — Yardmaster removes the car or locomotive from the consist; holds it at WP on arrival
+3. **Bad order tag applied** — owner attaches a physical bad order tag to the equipment
+4. **Repair scheduled** — owner logs the defect and schedules a repair session; equipment remains out of service
+5. **Release** — after repair, owner inspects and removes the bad order tag; equipment returned to the active roster
+
+_Future yardmaster feature: digital bad order reporting and tracking via the Yardmaster page — flag a car or locomotive as bad order, record the defect description, and block bad order equipment from consist assignment until the owner releases it._
