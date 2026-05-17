@@ -11,7 +11,7 @@
 
 **Road name:** New York and Eastern Railroad (NY&E)
 **Subdivision:** Northern Lights Subdivision
-**Timetable reference:** No. 4, December 31, 1904 — `Documents/Layout/modelrr/timetable4.pdf`
+**Timetable reference:** No. 4, December 31, 1904 — `Trains/NYELayoutDocs/alt/timetable.ods`
 
 The NY&E is a freelanced regional carrier modeled on C&O mountain branch line character. The Northern Lights Subdivision runs from the C&O connection at Williamsport northward into mountain resort and mining territory, terminating at Hemlock Crest.
 
@@ -19,17 +19,19 @@ The NY&E is a freelanced regional carrier modeled on C&O mountain branch line ch
 
 ## 2. Physical Layout Description
 
-### Two-Level Arrangement
+### Two-Level Track Arrangement at Williamsport
 
-| Level | Content |
+_Note: "Upper" and "lower" refer to track elevation/line at Williamsport — not to physical benchwork construction levels._
+
+| Track | Content |
 |-------|---------|
 | Upper | C&O mainline — short modeled section between East staging and West staging |
 | Lower | NY&E Northern Lights Subdivision — WP (Williamsport) to HC (Hemlock Crest) |
 
-### C&O Mainline (Upper Level)
-A representative section of the C&O mainline. Trains enter from East staging and exit to West staging (or vice versa). No through running — staging-to-staging operation only. The C&O shares the Williamsport station building with the NY&E on the lower level.
+### C&O Mainline (Upper Track)
+A representative section of the C&O mainline. Trains enter from East staging and exit to West staging (or vice versa). No through running — staging-to-staging operation only. The C&O shares the Williamsport station building with the NY&E on the lower track.
 
-### NY&E Branch (Lower Level)
+### NY&E Branch (Lower Track)
 Point-to-point, single main track, south to north. All stations have passing sidings. Southward trains are **superior by direction**. The branch connects to the C&O at Williamsport (WP) and terminates at Hemlock Crest (HC).
 
 ### Track Plan
@@ -78,18 +80,19 @@ Point-to-point, single main track, south to north. All stations have passing sid
 
 | Name | Notes |
 |------|-------|
-| Williamsport Yard East | Shared with NY&E; interchange track for car exchange |
+| Williamsport Yard East | Shared with NY&E; interchange track for car exchange; used by C&O freight trains |
 | Williamsport Yard West | C&O only |
+| Williamsport | Station building east of the yard; shared with NY&E; used by C&O passenger trains |
 | East Staging | Cumberland / Erland MD direction |
 | West Staging | Covington WV direction |
 
-C&O operations at WP do not use CYD units or digital OS reporting. C&O train schedules appear in the timetable for yard planning purposes only (Yardmaster display, interchange coordination).
+C&O freight trains use the yard (Williamsport Yard East/West). C&O passenger trains use the Williamsport station building. C&O operations at WP do not use CYD units or digital OS reporting. C&O train schedules appear in the timetable for yard planning purposes only (Yardmaster display, interchange coordination).
 
 ---
 
 ## 4. Timetable Reference
 
-**Timetable No. 4, December 31, 1904** is the primary operating authority. Source PDF: `NYELayoutDocs/alt/timetable.pdf`. The digital representation is `timetable.json` loaded by RR_Server at startup.
+**Timetable No. 4, December 31, 1904** is the primary operating authority. Source file: `Trains/NYELayoutDocs/alt/timetable.ods`. The digital representation is `timetable.json` loaded by RR_Server at startup.
 
 The Northern Lights Subdivision runs **12 northward and 12 southward trains daily** (all marked Daily):
 
@@ -107,7 +110,7 @@ The timetable also covers the **C&O East Central Subdivision** through Williamsp
 
 ## 5. Motive Power
 
-Ten steam locomotives on the active roster. All NY&E road engines are Bachmann HO. C&O #1592 (interchange visitor) and Pennsylvania #1492 (joint runs) are foreign road units.
+Ten steam locomotives on the active roster. All NY&E road engines are Bachmann HO. C&O #1592 and Pennsylvania #1492 are foreign road units that operate exclusively on C&O tracks at Williamsport; NY&E engines operate exclusively on the NY&E branch and do not run on C&O tracks.
 
 | Road # | Type | Road Name | Max Cars | DCC Addr | Manufacturer | Sound |
 |--------|------|-----------|----------|----------|--------------|-------|
@@ -254,7 +257,7 @@ _Derived from Timetable No. 4 and NY&E operating history._
 
 ### Switchback OS Rule
 
-Switchback stations (Xina Pass, Quilly Mine #3, and others with dual mileposts) require the train to reverse and swap engine/caboose positions before continuing. The OS rule depends on whether the train has work at that location:
+Switchback stations are BB (Becs Bend), JC (Jacks Creek), MC (Michelles Cove), and SK (Stans Knob). WP and HC (termini) and XP (Xina Pass) are not switchback stations; nor are industries (Quilly Mines, Kiel Co, O'Haras, Timber Ltd). At switchback stations the train reverses and swaps engine/caboose positions before continuing. The OS rule depends on whether the train has work at that location:
 
 - **No work:** Train is **not OS until engine and caboose are reconnected** after the reversal. Station agent submits the OS report at that point.
 - **Work to be done:** Train OSs **on arrival** (before reversal). Train must **take the siding immediately on arrival**. OS is not re-submitted after reconnection.
@@ -262,7 +265,7 @@ Switchback stations (Xina Pass, Quilly Mine #3, and others with dual mileposts) 
 The station agent CYD will display a reminder at switchback stations to prompt the correct procedure.
 
 ### C&O Interchange at Williamsport
-- WP yard is shared with C&O East Central trains
+- WP yard services all C&O freight — both East Central and westbound (Covington WV direction)
 - Yardmaster must keep the main clear for C&O through trains
 - Interchange track must be available when C&O trains arrive to drop or pick up cars
 - Car exchange tracked via the Car Card & Waybill system (see Section 10)
@@ -273,7 +276,7 @@ The station agent CYD will display a reminder at switchback stations to prompt t
 
 | Document | Location | Notes |
 |----------|----------|-------|
-| Timetable No. 4 (Dec 31, 1904) | `Documents/Layout/modelrr/timetable4.pdf` | Primary operating authority |
+| Timetable No. 4 (Dec 31, 1904) | `Trains/NYELayoutDocs/alt/timetable.ods` | Primary operating authority |
 | Railway Construction (1905) | `Downloads/Books/Trains/` | Period reference |
 | Passenger Terminals (1905) | `Downloads/Books/Trains/` | Period reference |
 | 1905 Equipment Register | `Downloads/Books/Trains/` | Motive power / car reference |
