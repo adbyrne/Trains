@@ -12,9 +12,9 @@ Model train hobby project. Contains three independent subdirectories for layout 
 
 | Directory | Description |
 |-----------|-------------|
-| [CADlayout](CADlayout/) | FreeCAD parametric designs for layout infrastructure (cable clips, electrical boxes, servo mounts, spline brackets) |
-| [CADtrains](CADtrains/) | FreeCAD parametric designs for rolling stock and station structures (caboose interior, station platform) |
-| [IOTtrains](IOTtrains/) | ESP32 firmware and RPi5 server software for MQTT-based layout control. Includes Station_OS, Switch_Control, TO_Signal, and RR_Server (dispatcher app, fast clock) |
+| [CADlayout](https://github.com/adbyrne/CADlayout) | FreeCAD parametric designs for layout infrastructure (cable clips, electrical boxes, servo mounts, spline brackets) |
+| [CADtrains](https://github.com/adbyrne/CADtrains) | FreeCAD parametric designs for rolling stock and station structures (caboose interior, station platform) |
+| [IOTtrains](https://github.com/adbyrne/IOTtrains) | ESP32 firmware and RPi5 server software for MQTT-based layout control. Includes Station_OS, Switch_Control, TO_Signal, and RR_Server (dispatcher app, fast clock) |
 
 Each subdirectory has its own independent git repository.
 
