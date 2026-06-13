@@ -83,6 +83,32 @@ Write `docs/scripts/generate_ett.py` to produce:
    - Direction column
    - Print-friendly: fits on half-sheet
 
+### Industry display rules (decided 2026-06-13)
+
+All industries must appear in the ETT with name + car spots. Two display modes:
+
+**Station industries** (`within_limits_of` is set):
+- Indented sub-entry within the parent station's centre column
+- Show: name, `car_spots`; no time cells
+
+**On-line industries** (`within_limits_of: null`, own milepost):
+- Own condensed row at their milepost, positioned between the correct station pair
+- Show: name, `car_spots`; no time cells; visually distinct from station rows (e.g. smaller font, no rule lines)
+- Examples: KIEL (mp 456), OHARAS_LF (mp 578), OHARAS_CS (mp 932)
+
+**timetable.json field reference for ETT:**
+- Stations: read `siding_length_cars` (passing-track capacity)
+- Industries: read `car_spots` (operational spotting capacity)
+- `within_limits_of: null` + own milepost = on-line industry row
+- `within_limits_of: "<ID>"` = sub-entry under that station
+
+### Industry yards (QM1, QM2) — separate data, not yet available
+
+QM1 and QM2 each have multiple named tracks (empties, loads, loading tracks).
+These are not in `yard.json` (which covers WP classification yard only).
+A future `industry_yards.json` will hold this data once XTrkCAD zero-length
+track issues are resolved. ETT generator does not need this for initial version.
+
 ---
 
 ## Priority 4 — Session 2.3 (Clearance Forms)
