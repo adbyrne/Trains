@@ -3,8 +3,11 @@
 generate_stringtable.py  —  NY&E Timetable No. 4  string table (time-distance diagram)
 
 Layout (Option B):
-  X = milepost   (WP mp=0 at left  →  HC mp=135 at right)
+  X = milepost   (WP mp=0 at left  →  HC at right, scale auto-computed from timetable)
   Y = railroad time  (00:00 at top  →  24:00 at bottom)
+
+MP values are track-footage from WP (1 MP = 1 XTrkCAD track foot).
+Plot width is fixed; PX_MI scales automatically to fit HC's milepost.
 
 C&O interchange trains shown as vertical marks at mp=0 (WP) with
 direction stubs indicating westbound/eastbound.
@@ -15,7 +18,7 @@ Dwell line weight:
 
 Mine spur: horizontal dashed stub from station MP to industry MP at dwell midpoint.
 
-XP (long siding, mp 37–43.5): dwell shown as diagonal across the siding.
+XP (long siding): dwell shown as diagonal across the siding.
 
 Usage:
   python3 generate_stringtable.py
@@ -57,8 +60,8 @@ LBL_FG    = "#666666"
 TITLE_FG  = "#1a1a1a"
 
 # ── layout ────────────────────────────────────────────────────────────────────
-PX_MI  = 4.5     # px per model-mile  →  plot width  = 135 × 4.5 = 607.5 px
-PX_HR  = 40.0    # px per hour        →  plot height = 24  × 40  = 960   px
+TARGET_PLOT_W = 607.5  # fixed plot width in px; PX_MI is computed from mp_max
+PX_HR  = 40.0    # px per hour  →  plot height = 24 × 40 = 960 px
 PAD_L  = 54      # time-axis labels (left)
 PAD_R  = 106     # legend (right)
 PAD_T  = 86      # station headers (top)
@@ -152,10 +155,17 @@ def generate():
     locs = {l["id"]: l for l in nls["locations"]}
 
     # ── canvas ────────────────────────────────────────────────────────────────
+    # Determine mp_max from timetable data so the diagram scales automatically
+    mp_max = max(
+        (l["milepost"] for l in nls["locations"]
+         if l.get("show_times") and l.get("milepost") is not None),
+        default=135,
+    )
+    PX_MI   = TARGET_PLOT_W / mp_max
     plot_left = PAD_L
     plot_top  = PAD_T + COE_H
-    plot_w    = 135 * PX_MI       # 607.5 px
-    plot_h    = 24  * PX_HR       # 960   px
+    plot_w    = TARGET_PLOT_W
+    plot_h    = 24  * PX_HR       # 960 px
 
     total_w = int(plot_left + plot_w + PAD_R)
     total_h = int(plot_top  + plot_h + PAD_B)
@@ -209,9 +219,12 @@ def generate():
         svg.text(xp + 2, ly + 14, mp_lbl, anchor="start", size=7,
                  fill=LBL_FG, rotate=-55)
 
-    # XP north-switch guide (dashed)
-    svg.line(X(43.5), plot_top, X(43.5), plot_top + plot_h,
-             XP_EXIT, 0.6, dash="3,6")
+    # long-siding exit guides (dashed) — any station with milepost_exit and show_both_times
+    for loc in guide:
+        if loc.get("milepost_exit") and loc.get("show_both_times") and not loc.get("switchback"):
+            svg.line(X(loc["milepost_exit"]), plot_top,
+                     X(loc["milepost_exit"]), plot_top + plot_h,
+                     XP_EXIT, 0.6, dash="3,6")
 
     # minor stops — short tick + small label
     for loc in minor:
@@ -236,7 +249,7 @@ def generate():
              "NY&E Northern Lights Subdivision — Timetable No. 4 — String Table",
              size=12, weight="bold", fill=TITLE_FG)
     svg.text(mx, 30,
-             "X = Milepost (WP mp 0 → HC mp 135)  ·  "
+             f"X = Milepost (WP mp 0 → HC mp {mp_max:.0f}, 1 MP = 1 track foot)  ·  "
              "Y = Railroad time  ·  Southward trains superior by direction",
              size=9, fill=LBL_FG)
     svg.text(plot_left - 4, plot_top - 5, "RR time",

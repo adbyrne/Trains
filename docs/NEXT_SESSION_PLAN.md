@@ -37,18 +37,31 @@ Likely refinements:
 
 ## Priority 2 — XTrkCAD data survey
 
-Items still null in timetable.json and yard.json that need physical measurement or XTrkCAD query:
+**2026-06-13:** `nye_layout_data.json` export received and synced into timetable.json + string table SVG.
+All MP values now from XTrkCAD track-footage (1 MP = 1 track foot, WP=0). See `docs/XTRKCAD_DATA_REQUIREMENTS.md`.
+
+**Resolved by 2026-06-13 export:**
+
+| Location | Resolved |
+|----------|---------|
+| XP | milepost, milepost_exit, siding_length_cars (3) ✓ |
+| BB | milepost, milepost_exit (entry + siding), siding_length_cars (4) ✓ |
+| SK | milepost, milepost_exit (entry + siding), siding_length_cars (3) ✓ |
+| HC | milepost, milepost_exit, siding_length_cars (3) ✓ |
+| JC | milepost ✓; confirmed NOT a switchback (no milepost_exit needed) |
+| TIMBER | milepost (9457.7 on JC reversing lead) ✓ |
+| KIEL, OHARAS_LF, OHARAS_CS, QM1, QM2 | milepost + siding_length_cars ✓ |
+| MC milepost reconcile | MP now from XTrkCAD (9132.9); old values were estimates — resolved |
+
+**Still open:**
 
 | Location | Missing data |
 |----------|-------------|
-| BB, JC, MC, SK | `milepost_exit` (switchback exit switch MP) |
-| BB, JC, MC, SK | `siding_length_cars` |
-| TIMBER | `milepost` (exact MP within JC siding) |
+| MC | `milepost_exit` — two-switch topology; exit at main-to-passing switch (needs topology analysis) |
+| JC | `siding_length_cars` — service track length not in export |
+| KIEL | `milepost_exit` — industrial switchback exit not measured |
 | WP RUN track | `length_model_in` |
 | All yard tracks | Verify lengths from XTrkCAD (currently approximate) |
-| MC | Confirm milepost: ops doc says 78.2; timetable.json says 99.2 — **reconcile** |
-
-Reference: `docs/XTRKCAD_DATA_REQUIREMENTS.md`
 
 ---
 
@@ -95,6 +108,7 @@ See `IOTtrains/docs/YARDMASTER_DESIGN.md` for full spec.
 ## Open questions / decisions deferred
 
 - **Interactive string table** (web component): FastAPI route `/stringtable`, scrolling viewport, current-time-at-top, 2-hour configurable window, extra-train planning aid. Design doc (`DISPATCHER_STRINGTABLE_DESIGN.md`) to be written after YM 2.0 is implemented.
-- **Timber Ltd milepost**: confirm exact position in JC siding once XTrkCAD survey done.
-- **MC milepost reconciliation**: ops doc shows 78.2, timetable.json has 99.2 — verify against XTrkCAD.
+- **Timber Ltd milepost**: confirmed 9457.7 on JC reversing lead from XTrkCAD export (2026-06-13). ✓
+- **MC milepost reconciliation**: resolved — old values were estimates; MC now at 9132.9 from XTrkCAD. ✓
+- **MC milepost_exit**: two-switch geometry; exit MP requires topology analysis in XTrkCAD.
 - **NLS freight train work notes**: `timetable.json` schedules don't yet have Setout/Pickup notes — needed for string table to show bold dwells and spur stubs at industries.

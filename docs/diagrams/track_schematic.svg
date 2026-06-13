@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  NY&E Northern Lights Subdivision — Track Schematic
+  Schematic representation — not to scale.
+  Station mileposts (from timetable.json, synced 2026-06-13 from XTrkCAD, 1 MP = 1 track foot):
+    WP=0  XP=3932(exit 4098, siding 3 cars)  BB=5371(switchback, exit 5580, siding 4 cars)
+    JC=7475(NOT a switchback — service track only)  MC=9133(switchback, exit TBD — two-switch geometry)
+    SK=14988(switchback, exit 15136, siding 3 cars)  HC=18121(exit 18285, service 3 cars)
+  Industries: KIEL=456, OHARAS_LF=578, OHARAS_CS=932 (near WP)
+              QM1=4867 (within XP limits)  TIMBER=9458 (within JC limits, on JC reversing lead)
+              QM2=9122 (within MC limits)  QM3 ELIMINATED.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 380" width="950" height="380">
+  <defs>
+    <style>text { font-family: Arial, Helvetica, sans-serif; }</style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="950" height="380" fill="#fafaf8"/>
+
+  <!-- Title -->
+  <text x="475" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#111">
+    NY&amp;E Northern Lights Subdivision — Track Schematic
+  </text>
+  <text x="475" y="34" text-anchor="middle" font-size="9" fill="#666" font-style="italic">
+    WP (Williamsport) to HC (Hemlock Crest) · Point-to-point single main track · Southward trains superior by direction · Schematic — not to scale
+  </text>
+
+  <!-- ============================================================ -->
+  <!-- C&O MAINLINE (upper level — separate from NY&E)             -->
+  <!-- Shown as single line above NY&E, connected only at INTX      -->
+  <!-- ============================================================ -->
+
+  <!-- C&O mainline track -->
+  <line x1="12" y1="80" x2="200" y2="80" stroke="#8b0000" stroke-width="2.5"/>
+  <!-- West staging label -->
+  <text x="8" y="77" text-anchor="start" font-size="8" fill="#8b0000" font-weight="bold">West</text>
+  <text x="8" y="87" text-anchor="start" font-size="7" fill="#8b0000">(Covington WV)</text>
+  <!-- East staging label -->
+  <text x="204" y="77" text-anchor="start" font-size="8" fill="#8b0000" font-weight="bold">East</text>
+  <text x="204" y="87" text-anchor="start" font-size="7" fill="#8b0000">(Cumberland MD)</text>
+  <!-- C&O label on track -->
+  <text x="106" y="75" text-anchor="middle" font-size="8" fill="#8b0000" font-style="italic">C&amp;O mainline (upper level)</text>
+
+  <!-- INTX connection — vertical line from C&O down to WP yard -->
+  <line x1="100" y1="80" x2="100" y2="148" stroke="#8b0000" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="103" y="120" font-size="7" fill="#8b0000">INTX</text>
+
+  <!-- ============================================================ -->
+  <!-- NY&E MAIN LINE                                               -->
+  <!-- Main track at y=200. Sidings above at y=183                  -->
+  <!-- Station x positions (proportional, adjusted for readability): -->
+  <!--   WP=68  XP=265/315  BB=397  JC=512  MC=652  SK=722  HC=880 -->
+  <!-- ============================================================ -->
+
+  <!-- Main track — through sections between stations -->
+  <line x1="148" y1="200" x2="245" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="315" y1="200" x2="380" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="415" y1="200" x2="495" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="530" y1="200" x2="635" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="670" y1="200" x2="705" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="740" y1="200" x2="862" y2="200" stroke="#222" stroke-width="3"/>
+
+  <!-- North arrow -->
+  <text x="900" y="56" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">N</text>
+  <line x1="900" y1="60" x2="900" y2="48" stroke="#333" stroke-width="2"/>
+  <polygon points="896,60 900,68 904,60" fill="#333"/>
+  <text x="900" y="78" text-anchor="middle" font-size="8" fill="#555">(HC)</text>
+
+  <!-- ============================================================ -->
+  <!-- WP — Williamsport Yard (South end / C&O Junction)           -->
+  <!-- MP 0 switch: freight yard (south) / passenger yard (north)  -->
+  <!-- Yard limits mp 0–2                                           -->
+  <!-- ============================================================ -->
+
+  <!-- WP Yard area -->
+  <rect x="12" y="180" width="138" height="40" rx="2" fill="#e8e8e8" stroke="#aaa" stroke-width="1"/>
+
+  <!-- Passenger yard (north half of WP) — above main track -->
+  <line x1="15" y1="187" x2="148" y2="187" stroke="#555" stroke-width="1.5"/>
+  <line x1="15" y1="193" x2="148" y2="193" stroke="#555" stroke-width="1.5"/>
+  <!-- Main track (through yard) -->
+  <line x1="15" y1="200" x2="148" y2="200" stroke="#333" stroke-width="3"/>
+  <!-- Freight yard (south half of WP) — below main track -->
+  <line x1="15" y1="207" x2="148" y2="207" stroke="#555" stroke-width="1.5"/>
+  <line x1="15" y1="213" x2="148" y2="213" stroke="#555" stroke-width="1.5"/>
+
+  <!-- Yard limit marker at MP 2 -->
+  <line x1="148" y1="178" x2="148" y2="222" stroke="#888" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="148" y="176" text-anchor="middle" font-size="6.5" fill="#888">YL mp 2</text>
+
+  <!-- MP 0 switch — splits freight / passenger at branch entry -->
+  <!-- Block signal at MP 0 (diamond marker on main track) -->
+  <polygon points="140,196 145,200 140,204 135,200" fill="none" stroke="#333" stroke-width="1.5"/>
+
+  <!-- Yard labels -->
+  <text x="75" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">WP</text>
+  <text x="75" y="179" text-anchor="middle" font-size="8.5" fill="#444">Williamsport</text>
+  <text x="55" y="232" text-anchor="middle" font-size="7" fill="#666">← Freight yard</text>
+  <text x="55" y="241" text-anchor="middle" font-size="7" fill="#666">Passenger yard →</text>
+  <text x="75" y="250" text-anchor="middle" font-size="7.5" fill="#1b5e20">▸ Clearance point</text>
+  <text x="75" y="259" text-anchor="middle" font-size="7" fill="#888">Yard limits mp 0–2</text>
+
+  <!-- WP CYD badge -->
+  <rect x="18" y="183" width="40" height="14" rx="2" fill="#2e7d32"/>
+  <text x="38" y="194" text-anchor="middle" font-size="7" fill="white">CYD</text>
+
+  <!-- Industries near WP — right-angle spurs (Kiel Co, O'Haras LF, O'Haras CS) -->
+  <line x1="162" y1="200" x2="162" y2="240" stroke="#555" stroke-width="1.5"/>
+  <line x1="147" y1="240" x2="177" y2="240" stroke="#555" stroke-width="1.5"/>
+  <polygon points="153,236 147,240 153,244" fill="#555"/>
+  <text x="162" y="253" text-anchor="middle" font-size="7" fill="#666">Kiel Co ↺</text>
+  <text x="162" y="262" text-anchor="middle" font-size="7" fill="#666">O'Haras LF</text>
+  <text x="162" y="271" text-anchor="middle" font-size="7" fill="#666">O'Haras CS</text>
+
+  <!-- ============================================================ -->
+  <!-- XP — Xina Pass (Register Station · long station limits)      -->
+  <!-- Block signal at south switch. Entry mp 3932 — exit mp 4098, 3 cars -->
+  <!-- ============================================================ -->
+
+  <line x1="245" y1="183" x2="315" y2="183" stroke="#555" stroke-width="1.5"/>
+  <line x1="245" y1="200" x2="315" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="245" y1="183" x2="245" y2="200" stroke="#555" stroke-width="1.5"/>
+  <line x1="315" y1="183" x2="315" y2="200" stroke="#555" stroke-width="1.5"/>
+
+  <!-- Block signal at XP south switch (diamond, other end of WP–XP block) -->
+  <polygon points="245,196 250,200 245,204 240,200" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="238" y="212" text-anchor="middle" font-size="6.5" fill="#888">BS</text>
+
+  <!-- TO signals at XP -->
+  <line x1="256" y1="183" x2="256" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="256" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="256" cy="164" r="2" fill="#333"/>
+  <line x1="304" y1="183" x2="304" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="304" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="304" cy="164" r="2" fill="#333"/>
+
+  <text x="280" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">XP</text>
+  <text x="280" y="165" text-anchor="middle" font-size="8.5" fill="#444">Xina Pass</text>
+  <rect x="257" y="183" width="46" height="17" rx="2" fill="#1a237e"/>
+  <text x="280" y="195" text-anchor="middle" font-size="7.5" fill="white">Register · CYD</text>
+  <text x="245" y="217" font-size="7" fill="#888">mp 3932 · 3 cars</text>
+
+  <!-- Block limit label WP–XP -->
+  <text x="196" y="175" text-anchor="middle" font-size="6.5" fill="#555" font-style="italic">◄── Block (mp 0 – XP south switch) ──►</text>
+
+  <!-- ============================================================ -->
+  <!-- Quilly Mine #1 — spur within XP limits                      -->
+  <!-- ============================================================ -->
+  <line x1="368" y1="200" x2="368" y2="240" stroke="#555" stroke-width="1.5"/>
+  <line x1="353" y1="240" x2="383" y2="240" stroke="#555" stroke-width="1.5"/>
+  <polygon points="359,236 353,240 359,244" fill="#555"/>
+  <text x="368" y="253" text-anchor="middle" font-size="7" fill="#666">QM#1 ↺</text>
+
+  <!-- ============================================================ -->
+  <!-- BB — Becs Bend (Switchback)                                  -->
+  <!-- ============================================================ -->
+
+  <line x1="380" y1="183" x2="415" y2="183" stroke="#555" stroke-width="1.5"/>
+  <line x1="380" y1="200" x2="415" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="380" y1="183" x2="380" y2="200" stroke="#555" stroke-width="1.5"/>
+  <line x1="415" y1="183" x2="415" y2="200" stroke="#555" stroke-width="1.5"/>
+
+  <line x1="388" y1="183" x2="388" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="388" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="388" cy="164" r="2" fill="#333"/>
+  <line x1="407" y1="183" x2="407" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="407" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="407" cy="164" r="2" fill="#333"/>
+
+  <text x="397" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">BB</text>
+  <text x="397" y="165" text-anchor="middle" font-size="8.5" fill="#444">Becs Bend</text>
+  <rect x="374" y="183" width="44" height="17" rx="2" fill="#2e7d32"/>
+  <text x="397" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
+  <text x="380" y="217" font-size="7" fill="#888">mp 5371 · 4 cars</text>
+
+  <!-- BB Switchback symbol -->
+  <line x1="397" y1="200" x2="397" y2="235" stroke="#8b0000" stroke-width="2"/>
+  <line x1="387" y1="235" x2="407" y2="235" stroke="#8b0000" stroke-width="2"/>
+  <polygon points="393,231 387,235 393,239" fill="#8b0000"/>
+  <text x="415" y="233" font-size="7.5" fill="#8b0000">switchback</text>
+
+  <!-- ============================================================ -->
+  <!-- JC — Jacks Creek (NOT a switchback — service/industry track) -->
+  <!-- ============================================================ -->
+
+  <line x1="495" y1="183" x2="530" y2="183" stroke="#555" stroke-width="1.5"/>
+  <line x1="495" y1="200" x2="530" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="495" y1="183" x2="495" y2="200" stroke="#555" stroke-width="1.5"/>
+  <line x1="530" y1="183" x2="530" y2="200" stroke="#555" stroke-width="1.5"/>
+
+  <line x1="503" y1="183" x2="503" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="503" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="503" cy="164" r="2" fill="#333"/>
+  <line x1="522" y1="183" x2="522" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="522" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="522" cy="164" r="2" fill="#333"/>
+
+  <text x="512" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">JC</text>
+  <text x="512" y="165" text-anchor="middle" font-size="8.5" fill="#444">Jacks Creek</text>
+  <rect x="489" y="183" width="44" height="17" rx="2" fill="#2e7d32"/>
+  <text x="512" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
+  <text x="495" y="217" font-size="7" fill="#888">mp 7475 · service</text>
+  <!-- Timber Ltd within JC limits (on JC reversing lead, mp 9458) -->
+  <line x1="522" y1="200" x2="522" y2="240" stroke="#555" stroke-width="1.5"/>
+  <line x1="507" y1="240" x2="537" y2="240" stroke="#555" stroke-width="1.5"/>
+  <text x="530" y="255" font-size="7" fill="#666">Timber Ltd</text>
+  <text x="530" y="264" font-size="7" fill="#666">mp 9458 (JC lead)</text>
+
+  <!-- ============================================================ -->
+  <!-- MC — Michelles Cove (Switchback — two-switch geometry, exit TBD) -->
+  <!-- ============================================================ -->
+
+  <line x1="635" y1="183" x2="670" y2="183" stroke="#555" stroke-width="1.5"/>
+  <line x1="635" y1="200" x2="670" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="635" y1="183" x2="635" y2="200" stroke="#555" stroke-width="1.5"/>
+  <line x1="670" y1="183" x2="670" y2="200" stroke="#555" stroke-width="1.5"/>
+
+  <line x1="643" y1="183" x2="643" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="643" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="643" cy="164" r="2" fill="#333"/>
+  <line x1="662" y1="183" x2="662" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="662" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="662" cy="164" r="2" fill="#333"/>
+
+  <text x="652" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">MC</text>
+  <text x="652" y="165" text-anchor="middle" font-size="8.5" fill="#444">Michelles Cove</text>
+  <rect x="628" y="183" width="48" height="17" rx="2" fill="#2e7d32"/>
+  <text x="652" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
+  <text x="635" y="217" font-size="7" fill="#888">mp 9133 · exit TBD</text>
+
+  <!-- MC Switchback symbol -->
+  <line x1="652" y1="200" x2="652" y2="235" stroke="#8b0000" stroke-width="2"/>
+  <line x1="642" y1="235" x2="662" y2="235" stroke="#8b0000" stroke-width="2"/>
+  <polygon points="648,231 642,235 648,239" fill="#8b0000"/>
+  <text x="672" y="233" font-size="7.5" fill="#8b0000">switchback</text>
+
+  <!-- Quilly Mine #2 — spur within MC limits -->
+  <line x1="635" y1="200" x2="635" y2="253" stroke="#555" stroke-width="1.5"/>
+  <line x1="620" y1="253" x2="650" y2="253" stroke="#555" stroke-width="1.5"/>
+  <polygon points="626,249 620,253 626,257" fill="#555"/>
+  <text x="635" y="265" text-anchor="middle" font-size="7" fill="#666">QM#2 ↺</text>
+
+  <!-- ============================================================ -->
+  <!-- SK — Stans Knob (Switchback)                                -->
+  <!-- ============================================================ -->
+
+  <line x1="705" y1="183" x2="740" y2="183" stroke="#555" stroke-width="1.5"/>
+  <line x1="705" y1="200" x2="740" y2="200" stroke="#222" stroke-width="3"/>
+  <line x1="705" y1="183" x2="705" y2="200" stroke="#555" stroke-width="1.5"/>
+  <line x1="740" y1="183" x2="740" y2="200" stroke="#555" stroke-width="1.5"/>
+
+  <line x1="713" y1="183" x2="713" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="713" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="713" cy="164" r="2" fill="#333"/>
+  <line x1="732" y1="183" x2="732" y2="167" stroke="#333" stroke-width="1.5"/>
+  <circle cx="732" cy="164" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="732" cy="164" r="2" fill="#333"/>
+
+  <text x="722" y="153" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">SK</text>
+  <text x="722" y="165" text-anchor="middle" font-size="8.5" fill="#444">Stans Knob</text>
+  <rect x="698" y="183" width="48" height="17" rx="2" fill="#2e7d32"/>
+  <text x="722" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
+  <text x="705" y="217" font-size="7" fill="#888">mp 14988 · 3 cars</text>
+
+  <!-- SK Switchback symbol -->
+  <line x1="722" y1="200" x2="722" y2="235" stroke="#8b0000" stroke-width="2"/>
+  <line x1="712" y1="235" x2="732" y2="235" stroke="#8b0000" stroke-width="2"/>
+  <polygon points="718,231 712,235 718,239" fill="#8b0000"/>
+  <text x="740" y="233" font-size="7.5" fill="#8b0000">switchback</text>
+
+  <!-- ============================================================ -->
+  <!-- Between SK and HC — no industries (QM3 eliminated; Timber within JC) -->
+
+  <!-- ============================================================ -->
+  <!-- HC — Hemlock Crest (North Terminus / Register Station)       -->
+  <!-- ============================================================ -->
+
+  <rect x="862" y="183" width="80" height="34" rx="2" fill="#e8e8e8" stroke="#aaa" stroke-width="1"/>
+  <line x1="865" y1="189" x2="940" y2="189" stroke="#555" stroke-width="1.5"/>
+  <line x1="865" y1="200" x2="940" y2="200" stroke="#333" stroke-width="3"/>
+  <line x1="865" y1="210" x2="940" y2="210" stroke="#555" stroke-width="1.5"/>
+
+  <text x="900" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">HC</text>
+  <text x="900" y="180" text-anchor="middle" font-size="8.5" fill="#444">Hemlock Crest</text>
+  <text x="900" y="232" text-anchor="middle" font-size="7.5" fill="#666">North Terminus</text>
+  <text x="900" y="243" text-anchor="middle" font-size="7.5" fill="#666">Register Station</text>
+  <text x="900" y="254" text-anchor="middle" font-size="7.5" fill="#1b5e20">▸ Clearance point</text>
+
+  <!-- ============================================================ -->
+  <!-- Direction labels                                             -->
+  <!-- ============================================================ -->
+  <text x="12" y="200" text-anchor="start" font-size="9" fill="#888" transform="rotate(-90,12,200)">← South (WP)</text>
+  <text x="942" y="200" text-anchor="end" font-size="9" fill="#888" transform="rotate(90,942,200)">North (HC) →</text>
+
+  <text x="540" y="278" text-anchor="middle" font-size="8.5" fill="#555" font-style="italic">
+    Southward trains are superior by direction. Single main track — all trains meet in sidings.
+  </text>
+
+  <!-- ============================================================ -->
+  <!-- Legend                                                       -->
+  <!-- ============================================================ -->
+  <rect x="5" y="287" width="940" height="87" rx="4" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="475" y="301" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Legend</text>
+
+  <!-- Row 1 -->
+  <line x1="15" y1="315" x2="55" y2="315" stroke="#222" stroke-width="3"/>
+  <text x="62" y="319" font-size="8.5" fill="#333">Main track</text>
+
+  <line x1="140" y1="315" x2="180" y2="315" stroke="#555" stroke-width="1.5"/>
+  <text x="187" y="319" font-size="8.5" fill="#333">Passing siding</text>
+
+  <line x1="285" y1="315" x2="325" y2="315" stroke="#8b0000" stroke-width="2.5"/>
+  <text x="332" y="319" font-size="8.5" fill="#333">C&amp;O mainline</text>
+
+  <line x1="430" y1="315" x2="445" y2="315" stroke="#8b0000" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="452" y="319" font-size="8.5" fill="#333">INTX connection</text>
+
+  <!-- Industry spur (right-angle) -->
+  <line x1="570" y1="310" x2="570" y2="320" stroke="#555" stroke-width="1.5"/>
+  <line x1="570" y1="320" x2="590" y2="320" stroke="#555" stroke-width="1.5"/>
+  <text x="597" y="319" font-size="8.5" fill="#333">Industry spur  ↺ = reversing spur</text>
+
+  <!-- Block signal diamond -->
+  <polygon points="755,311 761,315 755,319 749,315" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="768" y="319" font-size="8.5" fill="#333">Block signal (BS)</text>
+
+  <!-- Row 2 -->
+  <line x1="15" y1="340" x2="15" y2="350" stroke="#333" stroke-width="1.5"/>
+  <circle cx="15" cy="353" r="5" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="15" cy="353" r="2" fill="#333"/>
+  <text x="27" y="355" font-size="8.5" fill="#333">TO signal (N+S pair per station)</text>
+
+  <rect x="140" y="336" width="40" height="14" rx="2" fill="#2e7d32"/>
+  <text x="160" y="347" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
+  <text x="187" y="348" font-size="8.5" fill="#333">ESP32 touchscreen panel</text>
+
+  <rect x="285" y="336" width="55" height="14" rx="2" fill="#1a237e"/>
+  <text x="312" y="347" text-anchor="middle" font-size="7.5" fill="white">Register · CYD</text>
+  <text x="347" y="348" font-size="8.5" fill="#333">Register station (must OS)</text>
+
+  <!-- Switchback symbol -->
+  <line x1="500" y1="338" x2="500" y2="346" stroke="#8b0000" stroke-width="2"/>
+  <line x1="495" y1="346" x2="505" y2="346" stroke="#8b0000" stroke-width="2"/>
+  <polygon points="497,342 494,346 497,350" fill="#8b0000"/>
+  <text x="512" y="349" font-size="8.5" fill="#8b0000">Station switchback — crew reverses direction</text>
+</svg>

@@ -1,8 +1,9 @@
 # XTrkCAD Data Requirements for NY&E Layout Control System
 
-**Version:** 1.0
-**Date:** 2026-06-08
-**Layout file:** `~/XTrkCAD/nyelayout/layout.xtc`
+**Version:** 1.1
+**Date:** 2026-06-13
+**Layout file:** `~/XTrkCAD/nyelayout/new_york_and_eastern.xtc`
+**JSON export:** `~/XTrkCAD/nyelayout/reports/nye_layout_data.json` (generated 2026-06-13)
 
 ---
 
@@ -190,22 +191,27 @@ The schematic is intended for three uses (design decisions deferred):
 
 ---
 
-## 7. Current Null Field Status
+## 7. Field Status (updated 2026-06-13 from nye_layout_data.json)
 
-Fields awaiting XTrkCAD survey (as of 2026-06-08):
+**MP note:** timetable.json `milepost` values are now XTrkCAD track-footage (1 MP = 1 track foot from WP=0). They are NOT prototype miles. Only XP, BB, and SK have station house sidings (passing track for meets); other stations have service/industry track only.
 
-| Location ID | `milepost_exit` | `siding_length_cars` | Notes |
-|-------------|-----------------|----------------------|-------|
-| XP | 43.5 ✓ | null | Long station limits at mountain pass |
-| BB | null | null | Switchback; exit MP TBD |
-| JC | null | null | Switchback; exit MP TBD |
-| MC | null | null | Switchback; exit MP TBD |
-| SK | null | null | Switchback; exit MP TBD |
-| KIEL | null | null | Industrial switchback near WP |
-| OHARAS_LF | null | null | Spur near WP |
-| OHARAS_CS | null | null | Spur near WP |
-| QM1 | — | null | Spur within XP limits |
-| QM2 | — | null | Spur within MC limits |
-| TIMBER | — | null | Spur within JC limits (exact mp TBD) |
+| Location ID | `milepost` | `milepost_exit` | `siding_length_cars` | Notes |
+|-------------|-----------|-----------------|----------------------|-------|
+| WP | 0 ✓ | — | — | Origin |
+| KIEL | 455.6 ✓ | null | 2 ✓ | Industrial switchback; exit TBD |
+| OHARAS_LF | 578.0 ✓ | — | 2 ✓ | Simple spur |
+| OHARAS_CS | 932.1 ✓ | — | 2 ✓ | Simple spur |
+| XP | 3931.7 ✓ | 4097.6 ✓ | 3 ✓ | Station house siding; 165.9 ft |
+| QM1 | 4866.6 ✓ | — | 2 ✓ | Spur within XP limits; switchback |
+| BB | 5370.7 ✓ | 5580.4 ✓ | 4 ✓ | Station house siding; 209.7 ft; exit = entry + siding |
+| JC | 7475.4 ✓ | — | null | NOT a switchback (confirmed XTrkCAD); service track only; siding_length null |
+| TIMBER | 9457.7 ✓ | — | 2 ✓ | Within JC limits; on JC reversing lead |
+| MC | 9132.9 ✓ | **null** | null | Switchback, two-switch geometry; exit at main-to-passing switch (TBD from topology) |
+| QM2 | 9121.5 ✓ | — | 2 ✓ | Spur within MC limits; branches just before MC entry |
+| SK | 14988.4 ✓ | 15135.7 ✓ | 3 ✓ | Station house siding; 147.3 ft; exit = entry + siding |
+| HC | 18121.4 ✓ | 18285.3 ✓ | 3 ✓ | Terminal service track; 163.9 ft |
 
-*Update this table as fields are filled in from the XTrkCAD export.*
+**Remaining open items:**
+- MC `milepost_exit` — requires topology analysis to locate the main-to-passing-track switch MP
+- JC `siding_length_cars` — service track length not yet in export
+- KIEL `milepost_exit` — industrial switchback exit not measured
