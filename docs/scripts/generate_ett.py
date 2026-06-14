@@ -100,6 +100,13 @@ table.ett th, table.ett td {
 /* Direction header */
 .dir-nb { background: #dce8f5; text-align: center; font-weight: bold; font-size: 8pt; }
 .dir-sb { background: #f5dce8; text-align: center; font-weight: bold; font-size: 8pt; }
+/* Class group header */
+.cls-hdr { text-align: center; font-size: 7pt; font-weight: bold; letter-spacing: 0.04em; padding: 2px; }
+.cls1 { background: #dce8f5; }
+.cls2 { background: #e8e8f8; }
+.cls3 { background: #e8ead8; }
+/* Thick right border marks end of each class group */
+td.cls-break, th.cls-break { border-right: 2px solid #666 !important; }
 /* Train header cells */
 .th-train { background: #eef0f8; text-align: center; vertical-align: bottom; padding: 3px 2px; }
 .th-train .tn { font-weight: bold; font-size: 9pt; }
@@ -190,6 +197,30 @@ def generate_nls(tt):
     nb_s = [train_schedule(t) for t in nb]
     sb_s = [train_schedule(t) for t in sb]
 
+    # Class groups and break positions (index of last column in each class)
+    CLS_LABEL = {1: "CLASS I", 2: "CLASS II", 3: "CLASS III"}
+    from itertools import groupby as _groupby
+
+    def _class_groups(trains):
+        groups = []
+        for cls, g in _groupby(trains, key=lambda t: t["class"]):
+            groups.append((cls, list(g)))
+        return groups
+
+    nb_groups = _class_groups(nb)
+    sb_groups = _class_groups(sb)
+
+    # Set of column indices (0-based) that are the LAST in their class group
+    def _break_indices(groups):
+        idx, breaks = 0, set()
+        for _, g in groups:
+            idx += len(g)
+            breaks.add(idx - 1)
+        return breaks
+
+    nb_breaks = _break_indices(nb_groups)
+    sb_breaks = _break_indices(sb_groups)
+
     R = []  # HTML rows
 
     # ── Header ──────────────────────────────────────────────────────────────
@@ -202,14 +233,26 @@ def generate_nls(tt):
     R.append(f'<th colspan="{len(sb)}" class="dir-sb">SOUTHWARD →</th>')
     R.append("</tr>")
 
+    # Class grouping row
+    R.append("<tr>")
+    for cls, group in nb_groups:
+        extra = ' cls-break' if True else ''  # always break at group boundary
+        R.append(f'<th colspan="{len(group)}" class="cls-hdr cls{cls} cls-break">{CLS_LABEL[cls]}</th>')
+    R.append('<th class="th-sta"></th>')
+    for cls, group in sb_groups:
+        R.append(f'<th colspan="{len(group)}" class="cls-hdr cls{cls} cls-break">{CLS_LABEL[cls]}</th>')
+    R.append("</tr>")
+
     # Train number row
     R.append("<tr>")
-    for t in nb:
-        R.append(f'<th class="th-train"><div class="tn">No.{t["number"]}</div>'
+    for i, t in enumerate(nb):
+        brk = ' cls-break' if i in nb_breaks else ''
+        R.append(f'<th class="th-train{brk}"><div class="tn">No.{t["number"]}</div>'
                  f'<div class="ts">{SVC_SHORT.get(t["service"], t["service"])}</div></th>')
     R.append('<th class="th-sta"></th>')
-    for t in sb:
-        R.append(f'<th class="th-train"><div class="tn">No.{t["number"]}</div>'
+    for i, t in enumerate(sb):
+        brk = ' cls-break' if i in sb_breaks else ''
+        R.append(f'<th class="th-train{brk}"><div class="tn">No.{t["number"]}</div>'
                  f'<div class="ts">{SVC_SHORT.get(t["service"], t["service"])}</div></th>')
     R.append("</tr>")
 
@@ -222,7 +265,10 @@ def generate_nls(tt):
         if kind == "sta":
             R.append("<tr>")
             for i, t in enumerate(nb):
-                R.append(time_cell(nb_s[i].get(loc_id)))
+                cell = time_cell(nb_s[i].get(loc_id))
+                if i in nb_breaks:
+                    cell = cell.replace('class="time-blank"', 'class="time-blank cls-break"', 1).replace('class="time-cell"', 'class="time-cell cls-break"', 1)
+                R.append(cell)
             # Station cell
             name = loc.get("name", loc_id)
             types_str = " · ".join(x for x in loc.get("types", []) if x != "I")
@@ -248,7 +294,10 @@ def generate_nls(tt):
                 inner += f'<div class="st-sid">Siding {siding} cars</div>'
             R.append(f'<td class="st-col">{inner}</td>')
             for i, t in enumerate(sb):
-                R.append(time_cell(sb_s[i].get(loc_id)))
+                cell = time_cell(sb_s[i].get(loc_id))
+                if i in sb_breaks:
+                    cell = cell.replace('class="time-blank"', 'class="time-blank cls-break"', 1).replace('class="time-cell"', 'class="time-cell cls-break"', 1)
+                R.append(cell)
             R.append("</tr>")
 
         elif kind == "sub":
