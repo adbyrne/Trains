@@ -1,7 +1,7 @@
 # XTrkCAD Data Requirements for NY&E Layout Control System
 
-**Version:** 1.1
-**Date:** 2026-06-13
+**Version:** 1.2
+**Date:** 2026-06-13 (updated export)
 **Layout file:** `~/XTrkCAD/nyelayout/new_york_and_eastern.xtc`
 **JSON export:** `~/XTrkCAD/nyelayout/reports/nye_layout_data.json` (generated 2026-06-13)
 
@@ -48,11 +48,12 @@ The export must be **repeatable** — re-run after each layout remodel session t
 | Field | Description | Unit |
 |-------|-------------|------|
 | `industry_id` | Matches `timetable.json` location `id` | — |
-| `connected_station` | Station whose siding the spur branches from (`within_limits_of`) | — |
-| `branch_milepost` | MP at spur branch point on the main or siding | prototype miles |
-| `spur_length_ft` | Physical length of spur track | real feet |
-| `spur_length_cars` | Car capacity (computed: `floor(spur_length_ft * 2)`) | cars |
+| `connected_station` | Station whose siding the spur branches from (`within_limits_of`); null for on-line industries | — |
+| `branch_milepost` | MP at spur branch point on the main or siding | prototype ft |
+| `car_spots` | Operational spotting capacity (from stations.yaml, not derived from spur length) | cars |
 | `switchback` | Whether the spur is itself a reversing switchback | boolean |
+
+Note: `spur_length_ft` and `spur_length_cars` are no longer in the export. Use `car_spots` instead.
 
 **Industry ↔ station mapping (from timetable.json):**
 
@@ -79,20 +80,22 @@ Segments: WP→XP, XP→BB, BB→JC, JC→MC, MC→SK, SK→HC.
 
 ## 3. Output Format
 
-The MCP tool produces `layout_data.json` (location TBD — suggest `IOTtrains/RR_Server/data/`):
+The MCP tool produces `nye_layout_data.json` at `~/XTrkCAD/nyelayout/reports/`:
 
 ```json
 {
-  "generated": "2026-06-08T00:00:00Z",
-  "layout": "Northern Lights Overview",
+  "generated": "2026-06-13T20:22:35Z",
+  "layout": "new_york_and_eastern",
   "scale": "HO",
   "stations": [
     {
       "station_id": "XP",
-      "milepost_entry": 37.0,
-      "milepost_exit": 43.5,
-      "siding_length_ft": null,
-      "siding_length_cars": null,
+      "milepost_entry": 3931.659,
+      "milepost_exit": 4097.573,
+      "siding_length_ft": 165.914,
+      "siding_length_cars": 3,
+      "main_length_ft": 686.385,
+      "main_length_cars": 15,
       "switchback": false
     }
   ],
@@ -100,9 +103,8 @@ The MCP tool produces `layout_data.json` (location TBD — suggest `IOTtrains/RR
     {
       "industry_id": "QM1",
       "connected_station": "XP",
-      "branch_milepost": 51.4,
-      "spur_length_ft": null,
-      "spur_length_cars": null,
+      "branch_milepost": 5112.298,
+      "car_spots": 2,
       "switchback": true
     }
   ],
@@ -110,14 +112,27 @@ The MCP tool produces `layout_data.json` (location TBD — suggest `IOTtrains/RR
     {
       "from_station": "WP",
       "to_station": "XP",
-      "length_ft": null
+      "length_ft": 3931.659
+    }
+  ],
+  "yard_tracks": [
+    {
+      "yard_id": "WP",
+      "label": "Arrival/Departure",
+      "track_id": 361,
+      "length_ft": 512.262,
+      "car_capacity": 11
     }
   ]
 }
 ```
 
-A merge script reads `layout_data.json` and updates the corresponding `null` fields in `timetable.json`
-in-place, leaving all non-null fields untouched.
+**Known issues in current export (treat as documented):**
+- WP `milepost_exit` = 1.177 ft — terminus artefact; treat as null in timetable
+- JC `siding_length_ft` = 723 / `milepost_exit` = 8199 — layer-inferred, wrong; JC has no passing siding (use null)
+- QM1 Coke + Lead `yard_tracks` entries have `length_ft = 0` — note placement bug; do not use
+
+Data is consumed by manually syncing into `timetable.json` (mileposts, siding_length_cars) and `yard.json` (yard track lengths). No automated merge script exists yet.
 
 ---
 

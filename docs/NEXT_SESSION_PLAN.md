@@ -37,31 +37,39 @@ Likely refinements:
 
 ## Priority 2 — XTrkCAD data survey
 
-**2026-06-13:** `nye_layout_data.json` export received and synced into timetable.json + string table SVG.
-All MP values now from XTrkCAD track-footage (1 MP = 1 track foot, WP=0). See `docs/XTRKCAD_DATA_REQUIREMENTS.md`.
+**2026-06-13 (updated export):** `nye_layout_data.json` re-exported with structural schema changes and corrected MP values. All changes synced into timetable.json, schedule.json, NYE_StringTable.svg, and yard.json. See `docs/XTRKCAD_DATA_REQUIREMENTS.md`.
+
+**Schema changes in 2026-06-13 export:**
+- Stations: now have `milepost_entry` + `milepost_exit` pre-computed (no longer derive exit from entry + siding length)
+- Industries: `spur_length_ft`/`spur_length_cars` removed; now have `car_spots` + `branch_milepost`
+- `yard_tracks` added as new top-level array (WP, QM1, QM2 tracks with XTrkCAD-measured lengths)
 
 **Resolved by 2026-06-13 export:**
 
 | Location | Resolved |
 |----------|---------|
 | XP | milepost, milepost_exit, siding_length_cars (3) ✓ |
-| BB | milepost, milepost_exit (entry + siding), siding_length_cars (4) ✓ |
-| SK | milepost, milepost_exit (entry + siding), siding_length_cars (3) ✓ |
+| BB | milepost, milepost_exit (5638.6), siding_length_cars (4) ✓ |
+| SK | milepost (14508.7), milepost_exit (14834.9), siding_length_cars (3) ✓ |
 | HC | milepost, milepost_exit, siding_length_cars (3) ✓ |
-| JC | milepost ✓; confirmed NOT a switchback (no milepost_exit needed) |
-| TIMBER | milepost (9457.7 on JC reversing lead) ✓ |
-| KIEL, OHARAS_LF, OHARAS_CS, QM1, QM2 | milepost + siding_length_cars ✓ |
-| MC milepost reconcile | MP now from XTrkCAD (9132.9); old values were estimates — resolved |
+| MC | milepost (8914.9), milepost_exit (9570.3 via @MC_EXIT), siding_length_cars (11) ✓ |
+| JC | milepost ✓; confirmed NOT a switchback; no passing siding (milepost_exit + siding_length_cars → null) |
+| TIMBER | milepost (9457.7 on JC reversing lead), car_spots (3) ✓ |
+| KIEL, OHARAS_LF | milepost + car_spots ✓ |
+| OHARAS_CS | milepost corrected (578.0, co-located with LF), car_spots (1) ✓ |
+| QM1 | milepost corrected (5112.3), car_spots (2) ✓ |
+| QM2 | milepost corrected (9629.9), car_spots (2) ✓ |
+| WP yard tracks | XTrkCAD-measured lengths in yard.json v1.1 ✓ |
 
 **Still open:**
 
 | Location | Missing data |
 |----------|-------------|
-| MC | `milepost_exit` — two-switch topology; exit at main-to-passing switch (needs topology analysis) |
-| JC | `siding_length_cars` — service track length not in export |
+| MC | Topology confirm — `milepost_exit` value (9570.3) trusted from @MC_EXIT reference point but two-switch geometry not yet surveyed |
+| JC | Service track length (for Yardmaster, not timetable) |
 | KIEL | `milepost_exit` — industrial switchback exit not measured |
-| WP RUN track | `length_model_in` |
-| All yard tracks | Verify lengths from XTrkCAD (currently approximate) |
+| WP RUN track | `length_ft` not in export |
+| QM1 Coke + Lead | `length_ft = 0` in export (note placement bug — do not use) |
 
 ---
 
