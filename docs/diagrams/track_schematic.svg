@@ -3,12 +3,12 @@
   NY&E Northern Lights Subdivision — Track Schematic
   Schematic representation — not to scale.
   Station mileposts (from timetable.json, synced 2026-06-14 from XTrkCAD, 1 MP = 12 layout inches):
-    WP=0  XP=542(exit 637, siding 15 cars)  BB=740(switchback, exit 777, siding 6 cars)
-    JC=1030(NOT a switchback — passing siding 16 cars, exit 1130)  MC=1228(switchback, exit 1318, siding 11 cars)
-    SK=1999(switchback, exit 2044, siding 7 cars)  HC=2497(terminus, service 7 cars)
-  Industries: KIEL=63, OHARAS_LF=80, OHARAS_CS=80 (near WP)
-              QM1=671 (within XP limits)  TIMBER=1303 (within JC limits, on JC reversing lead)
-              QM2=1257 (within MC limits)  QM3 ELIMINATED.
+    WP=0  XP=45.1(exit 53.1, siding 15 cars)  BB=61.7(switchback, exit 64.7, siding 6 cars)
+    JC=85.8(NOT a switchback — passing siding 16 cars, exit 94.1)  MC=102.4(switchback, exit 109.9, siding 11 cars)
+    SK=166.6(switchback, exit 170.3, siding 7 cars)  HC=208.1(terminus, service 7 cars)
+  Industries: KIEL=5.2, OHARAS_LF=6.6, OHARAS_CS=6.6 (near WP)
+              QM1=55.9 (within XP limits)  TIMBER=108.6 (within JC limits, on JC reversing lead)
+              QM2=104.7 (within MC limits)  QM3 ELIMINATED.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 380" width="950" height="380">
   <defs>
@@ -123,7 +123,7 @@
   <line x1="245" y1="183" x2="245" y2="200" stroke="#555" stroke-width="1.5"/>
   <line x1="315" y1="183" x2="315" y2="200" stroke="#555" stroke-width="1.5"/>
 
-  <!-- Block signal at XP south switch (diamond, other end of WP–XP block) -->
+  <!-- Block signal at XP south switch (diamond, other end of WP–XP block). Entry mp 45.1 — exit mp 53.1, 15 cars -->
   <polygon points="245,196 250,200 245,204 240,200" fill="none" stroke="#333" stroke-width="1.5"/>
   <text x="238" y="212" text-anchor="middle" font-size="6.5" fill="#888">BS</text>
 
@@ -139,7 +139,7 @@
   <text x="280" y="165" text-anchor="middle" font-size="8.5" fill="#444">Xina Pass</text>
   <rect x="257" y="183" width="46" height="17" rx="2" fill="#1a237e"/>
   <text x="280" y="195" text-anchor="middle" font-size="7.5" fill="white">Register · CYD</text>
-  <text x="245" y="217" font-size="7" fill="#888">mp 542 · 15 cars</text>
+  <text x="245" y="217" font-size="7" fill="#888">mp 45.1 · 15 cars</text>
 
   <!-- Block limit label WP–XP -->
   <text x="196" y="175" text-anchor="middle" font-size="6.5" fill="#555" font-style="italic">◄── Block (mp 0 – XP south switch) ──►</text>
@@ -172,7 +172,7 @@
   <text x="397" y="165" text-anchor="middle" font-size="8.5" fill="#444">Becs Bend</text>
   <rect x="374" y="183" width="44" height="17" rx="2" fill="#2e7d32"/>
   <text x="397" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="380" y="217" font-size="7" fill="#888">mp 740 · 6 cars</text>
+  <text x="380" y="217" font-size="7" fill="#888">mp 61.7 · 6 cars</text>
 
   <!-- BB Switchback symbol -->
   <line x1="397" y1="200" x2="397" y2="235" stroke="#8b0000" stroke-width="2"/>
@@ -200,12 +200,12 @@
   <text x="512" y="165" text-anchor="middle" font-size="8.5" fill="#444">Jacks Creek</text>
   <rect x="489" y="183" width="44" height="17" rx="2" fill="#2e7d32"/>
   <text x="512" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="495" y="217" font-size="7" fill="#888">mp 1030 · 16 cars</text>
-  <!-- Timber Ltd within JC limits (on JC reversing lead, mp 1303) -->
+  <text x="495" y="217" font-size="7" fill="#888">mp 85.8 · 16 cars</text>
+  <!-- Timber Ltd within JC limits (on JC reversing lead, mp 108.6) -->
   <line x1="522" y1="200" x2="522" y2="240" stroke="#555" stroke-width="1.5"/>
   <line x1="507" y1="240" x2="537" y2="240" stroke="#555" stroke-width="1.5"/>
   <text x="530" y="255" font-size="7" fill="#666">Timber Ltd</text>
-  <text x="530" y="264" font-size="7" fill="#666">mp 1303 (JC lead)</text>
+  <text x="530" y="264" font-size="7" fill="#666">mp 108.6 (JC lead)</text>
 
   <!-- ============================================================ -->
   <!-- MC — Michelles Cove (Switchback — two-switch geometry, exit TBD) -->
@@ -227,7 +227,7 @@
   <text x="652" y="165" text-anchor="middle" font-size="8.5" fill="#444">Michelles Cove</text>
   <rect x="628" y="183" width="48" height="17" rx="2" fill="#2e7d32"/>
   <text x="652" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="635" y="217" font-size="7" fill="#888">mp 1228 · exit 1318 · 11 cars</text>
+  <text x="635" y="217" font-size="7" fill="#888">mp 102.4 · exit 109.9 · 11 cars</text>
 
   <!-- MC Switchback symbol -->
   <line x1="652" y1="200" x2="652" y2="235" stroke="#8b0000" stroke-width="2"/>
@@ -261,7 +261,7 @@
   <text x="722" y="165" text-anchor="middle" font-size="8.5" fill="#444">Stans Knob</text>
   <rect x="698" y="183" width="48" height="17" rx="2" fill="#2e7d32"/>
   <text x="722" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="705" y="217" font-size="7" fill="#888">mp 1999 · 7 cars</text>
+  <text x="705" y="217" font-size="7" fill="#888">mp 166.6 · 7 cars</text>
 
   <!-- SK Switchback symbol -->
   <line x1="722" y1="200" x2="722" y2="235" stroke="#8b0000" stroke-width="2"/>

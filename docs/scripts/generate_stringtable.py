@@ -6,7 +6,7 @@ Layout (Option B):
   X = milepost   (WP mp=0 at left  →  HC at right, scale auto-computed from timetable)
   Y = railroad time  (00:00 at top  →  24:00 at bottom)
 
-MP values are track-footage from WP (1 MP = 1 XTrkCAD track foot).
+MP values are layout inches from WP (1 MP = 12 layout inches; 1 MP = 1 layout foot).
 Plot width is fixed; PX_MI scales automatically to fit HC's milepost.
 
 C&O interchange trains shown as vertical marks at mp=0 (WP) with
@@ -249,7 +249,7 @@ def generate():
              "NY&E Northern Lights Subdivision — Timetable No. 4 — String Table",
              size=12, weight="bold", fill=TITLE_FG)
     svg.text(mx, 30,
-             f"X = Milepost (WP mp 0 → HC mp {mp_max:.0f}, 1 MP = 1 track foot)  ·  "
+             f"X = Milepost (WP mp 0 → HC mp {mp_max:.0f}, 1 MP = 12 layout inches)  ·  "
              "Y = Railroad time  ·  Southward trains superior by direction",
              size=9, fill=LBL_FG)
     svg.text(plot_left - 4, plot_top - 5, "RR time",

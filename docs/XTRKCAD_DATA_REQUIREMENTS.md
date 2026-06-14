@@ -127,7 +127,7 @@ The MCP tool produces `nye_layout_data.json` at `~/XTrkCAD/nyelayout/reports/`:
 }
 ```
 
-**Note on units:** `milepost_entry`/`milepost_exit`/`branch_milepost` in the export are in layout MP (1 MP = 12 layout inches). Convert to timetable layout-inch values by multiplying by 12. Segment `length_ft` values are in prototype feet (layout inches × 87 / 12).
+**Note on units:** `milepost_entry`/`milepost_exit`/`branch_milepost` in the export are in layout MP (1 MP = 12 layout inches). Store these directly in timetable.json — do NOT multiply by 12. Segment `length_ft` values are in prototype feet and are not stored in timetable.json.
 
 **Known issues resolved in 2026-06-14 export:**
 - WP `milepost_exit` terminus artefact — now correctly null in timetable
@@ -198,7 +198,7 @@ The tool must expose these operations (proposed names — adjust to MCP bridge c
 Once `layout_data.json` is produced, update the track schematic
 (`docs/diagrams/track_schematic.svg`) to annotate actual siding lengths on each station:
 
-- Add length label (e.g., `4.2 ft / 8 cars`) inside or below each passing siding
+- Add capacity label (e.g., `8 cars`) inside or below each passing siding — track lengths in feet are not displayed to preserve layout illusion
 - Update station tooltips or notes for the dispatcher display version
 
 The schematic is intended for three uses (design decisions deferred):
@@ -210,25 +210,27 @@ The schematic is intended for three uses (design decisions deferred):
 
 ## 7. Field Status (updated 2026-06-14 from nye_layout_data.json)
 
-**MP note:** timetable.json `milepost` values are in **layout inches** (export MP × 12; 1 MP = 12 layout inches from WP=0). They are NOT prototype miles or feet.
+**MP note:** timetable.json `milepost` values are in **export MP** (the raw XTrkCAD layout milepost; 1 MP = 12 layout inches from WP=0). They are NOT prototype miles or feet. Do NOT multiply by 12 — store directly from `milepost_entry`/`branch_milepost` in the export.
+
+**Display note:** timetables and diagrams show siding capacity in **cars only** — not track length in feet or inches.
 
 | Location ID | `milepost` | `milepost_exit` | `siding_length_cars` | Notes |
 |-------------|-----------|-----------------|----------------------|-------|
 | WP | 0 ✓ | — | — | Origin / terminus |
-| KIEL | 62.8 ✓ | null | 2 ✓ | Industrial switchback; exit not measured |
-| OHARAS_LF | 79.6 ✓ | — | 2 ✓ | Simple spur |
-| OHARAS_CS | 79.6 ✓ | — | 1 ✓ | Co-located with LF; coal delivery 1 spot |
-| XP | 541.7 ✓ | 637.2 ✓ | 15 ✓ | Long station limits; 693 ft siding |
-| QM1 | 670.5 ✓ | — | 2 ✓ | Spur within XP limits; switchback |
-| BB | 739.9 ✓ | 776.8 ✓ | 6 ✓ | Switchback; 274 ft siding |
-| JC | 1029.9 ✓ | 1129.6 ✓ | 16 ✓ | NOT a switchback; passing siding 723 ft |
-| TIMBER | 1303.0 ✓ | — | 3 ✓ | Within JC limits; on JC reversing lead (physically within MC station limits) |
-| MC | 1228.2 ✓ | 1318.5 ✓ | 11 ✓ | Switchback; 480 ft siding; exit trusted from @MC_EXIT ref point |
-| QM2 | 1256.7 ✓ | — | 2 ✓ | Spur within MC limits |
-| SK | 1998.9 ✓ | 2043.8 ✓ | 7 ✓ | Switchback; 308 ft siding |
-| HC | 2496.6 ✓ | — | 7 ✓ | North terminus; service siding 340 ft |
+| KIEL | 5.2 ✓ | null | 2 ✓ | Industrial switchback; exit not measured |
+| OHARAS_LF | 6.6 ✓ | — | 2 ✓ | Simple spur |
+| OHARAS_CS | 6.6 ✓ | — | 1 ✓ | Co-located with LF; coal delivery 1 spot |
+| XP | 45.1 ✓ | 53.1 ✓ | 15 ✓ | Long station limits; 15 cars |
+| QM1 | 55.9 ✓ | — | 2 ✓ | Spur within XP limits; switchback |
+| BB | 61.7 ✓ | 64.7 ✓ | 6 ✓ | Switchback; 6-car siding |
+| JC | 85.8 ✓ | 94.1 ✓ | 16 ✓ | NOT a switchback; passing siding 16 cars |
+| TIMBER | 108.6 ✓ | — | 3 ✓ | Within JC limits; on JC reversing lead (physically within MC station limits) |
+| MC | 102.4 ✓ | 109.9 ✓ | 11 ✓ | Switchback; 11-car siding; exit trusted from @MC_EXIT ref point |
+| QM2 | 104.7 ✓ | — | 2 ✓ | Spur within MC limits |
+| SK | 166.6 ✓ | 170.3 ✓ | 7 ✓ | Switchback; 7-car siding |
+| HC | 208.1 ✓ | — | 7 ✓ | North terminus; service siding 7 cars |
 
 **Remaining open items:**
-- MC `milepost_exit` topology confirm — value 1318.5 trusted from @MC_EXIT reference point; two-switch geometry not yet surveyed
+- MC `milepost_exit` topology confirm — value 109.9 trusted from @MC_EXIT reference point; two-switch geometry not yet surveyed
 - KIEL `milepost_exit` — industrial switchback exit not measured
 - JC service track length — for Yardmaster display only; not needed for timetable
