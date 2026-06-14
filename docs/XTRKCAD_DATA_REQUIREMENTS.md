@@ -1,9 +1,9 @@
 # XTrkCAD Data Requirements for NY&E Layout Control System
 
-**Version:** 1.2
-**Date:** 2026-06-13 (updated export)
+**Version:** 1.3
+**Date:** 2026-06-14 (updated export — milepost unit corrected)
 **Layout file:** `~/XTrkCAD/nyelayout/new_york_and_eastern.xtc`
-**JSON export:** `~/XTrkCAD/nyelayout/reports/nye_layout_data.json` (generated 2026-06-13)
+**JSON export:** `~/XTrkCAD/nyelayout/reports/nye_layout_data.json` (generated 2026-06-14)
 
 ---
 
@@ -29,13 +29,13 @@ The export must be **repeatable** — re-run after each layout remodel session t
 | Field | Description | Unit |
 |-------|-------------|------|
 | `station_id` | Matches `timetable.json` location `id` | — |
-| `milepost_entry` | MP at south (entry) end of passing siding | prototype miles |
-| `milepost_exit` | MP at north (exit) end of passing siding | prototype miles |
+| `milepost_entry` | MP at south (entry) end of passing siding | layout inches (MP × 12) |
+| `milepost_exit` | MP at north (exit) end of passing siding | layout inches (MP × 12) |
 | `siding_length_ft` | Physical length of passing siding track | real feet |
 | `siding_length_cars` | Car capacity (computed: `floor(siding_length_ft * 2)`) | cars |
 | `switchback` | Whether siding is a reversing switchback | boolean |
 
-**MP convention:** 1 MP = 1 real foot. MPs increase northward (WP=0, HC=135).
+**MP convention:** 1 MP = 12 layout inches (layout-distance based; ignores prototype scale). MPs increase northward (WP=0, HC≈2497).
 
 **Siding length:** measure from the south clearance point to the north clearance point (end of the runaround, exclusive of the main-track turnouts).
 
@@ -49,7 +49,7 @@ The export must be **repeatable** — re-run after each layout remodel session t
 |-------|-------------|------|
 | `industry_id` | Matches `timetable.json` location `id` | — |
 | `connected_station` | Station whose siding the spur branches from (`within_limits_of`); null for on-line industries | — |
-| `branch_milepost` | MP at spur branch point on the main or siding | prototype ft |
+| `branch_milepost` | MP at spur branch point on the main or siding | layout inches (MP × 12) |
 | `car_spots` | Operational spotting capacity (from stations.yaml, not derived from spur length) | cars |
 | `switchback` | Whether the spur is itself a reversing switchback | boolean |
 
@@ -64,7 +64,7 @@ Note: `spur_length_ft` and `spur_length_cars` are no longer in the export. Use `
 | OHARAS_CS | — (near WP) | Simple spur |
 | QM1 | XP | Mine spur; crews exchange cars at XP siding |
 | QM2 | MC | Mine spur; accessible from MC siding |
-| TIMBER | JC | Lumber industry; moved to JC siding (mp TBD within JC limits) |
+| TIMBER | JC | Lumber industry; on JC reversing lead (mp 1303, physically within MC station limits) |
 
 ### 2.3 Mainline Segments (between consecutive stations)
 
@@ -84,16 +84,16 @@ The MCP tool produces `nye_layout_data.json` at `~/XTrkCAD/nyelayout/reports/`:
 
 ```json
 {
-  "generated": "2026-06-13T20:22:35Z",
+  "generated": "2026-06-14T17:12:45Z",
   "layout": "new_york_and_eastern",
   "scale": "HO",
   "stations": [
     {
       "station_id": "XP",
-      "milepost_entry": 3931.659,
-      "milepost_exit": 4097.573,
-      "siding_length_ft": 165.914,
-      "siding_length_cars": 3,
+      "milepost_entry": 45.14,
+      "milepost_exit": 53.096,
+      "siding_length_ft": 693.008,
+      "siding_length_cars": 15,
       "main_length_ft": 686.385,
       "main_length_cars": 15,
       "switchback": false
@@ -103,7 +103,7 @@ The MCP tool produces `nye_layout_data.json` at `~/XTrkCAD/nyelayout/reports/`:
     {
       "industry_id": "QM1",
       "connected_station": "XP",
-      "branch_milepost": 5112.298,
+      "branch_milepost": 55.874,
       "car_spots": 2,
       "switchback": true
     }
@@ -119,7 +119,7 @@ The MCP tool produces `nye_layout_data.json` at `~/XTrkCAD/nyelayout/reports/`:
     {
       "yard_id": "WP",
       "label": "Arrival/Departure",
-      "track_id": 361,
+      "track_id": 367,
       "length_ft": 512.262,
       "car_capacity": 11
     }
@@ -127,10 +127,12 @@ The MCP tool produces `nye_layout_data.json` at `~/XTrkCAD/nyelayout/reports/`:
 }
 ```
 
-**Known issues in current export (treat as documented):**
-- WP `milepost_exit` = 1.177 ft — terminus artefact; treat as null in timetable
-- JC `siding_length_ft` = 723 / `milepost_exit` = 8199 — layer-inferred, wrong; JC has no passing siding (use null)
-- QM1 Coke + Lead `yard_tracks` entries have `length_ft = 0` — note placement bug; do not use
+**Note on units:** `milepost_entry`/`milepost_exit`/`branch_milepost` in the export are in layout MP (1 MP = 12 layout inches). Convert to timetable layout-inch values by multiplying by 12. Segment `length_ft` values are in prototype feet (layout inches × 87 / 12).
+
+**Known issues resolved in 2026-06-14 export:**
+- WP `milepost_exit` terminus artefact — now correctly null in timetable
+- JC siding detection — JC has a confirmed 16-car passing siding (was export layer bug; now correct)
+- QM1 Coke + Lead `length_ft = 0` — note placement bug resolved; real lengths now in export
 
 Data is consumed by manually syncing into `timetable.json` (mileposts, siding_length_cars) and `yard.json` (yard track lengths). No automated merge script exists yet.
 
@@ -165,7 +167,7 @@ track label:
 XTrkCAD MP values must be calibrated so that:
 - MP 0.0 = Williamsport Yard east end (WP)
 - MPs increase northward toward HC
-- Scale: 1 MP = 1 real foot (HO scale, prototype distance)
+- Scale: 1 MP = 12 layout inches (layout-distance based; ignores prototype scale)
 
 ### 4.3 Layer mapping
 
@@ -206,27 +208,27 @@ The schematic is intended for three uses (design decisions deferred):
 
 ---
 
-## 7. Field Status (updated 2026-06-13 from nye_layout_data.json)
+## 7. Field Status (updated 2026-06-14 from nye_layout_data.json)
 
-**MP note:** timetable.json `milepost` values are now XTrkCAD track-footage (1 MP = 1 track foot from WP=0). They are NOT prototype miles. Only XP, BB, and SK have station house sidings (passing track for meets); other stations have service/industry track only.
+**MP note:** timetable.json `milepost` values are in **layout inches** (export MP × 12; 1 MP = 12 layout inches from WP=0). They are NOT prototype miles or feet.
 
 | Location ID | `milepost` | `milepost_exit` | `siding_length_cars` | Notes |
 |-------------|-----------|-----------------|----------------------|-------|
-| WP | 0 ✓ | — | — | Origin |
-| KIEL | 455.6 ✓ | null | 2 ✓ | Industrial switchback; exit TBD |
-| OHARAS_LF | 578.0 ✓ | — | 2 ✓ | Simple spur |
-| OHARAS_CS | 932.1 ✓ | — | 2 ✓ | Simple spur |
-| XP | 3931.7 ✓ | 4097.6 ✓ | 3 ✓ | Station house siding; 165.9 ft |
-| QM1 | 4866.6 ✓ | — | 2 ✓ | Spur within XP limits; switchback |
-| BB | 5370.7 ✓ | 5580.4 ✓ | 4 ✓ | Station house siding; 209.7 ft; exit = entry + siding |
-| JC | 7475.4 ✓ | — | null | NOT a switchback (confirmed XTrkCAD); service track only; siding_length null |
-| TIMBER | 9457.7 ✓ | — | 2 ✓ | Within JC limits; on JC reversing lead |
-| MC | 9132.9 ✓ | **null** | null | Switchback, two-switch geometry; exit at main-to-passing switch (TBD from topology) |
-| QM2 | 9121.5 ✓ | — | 2 ✓ | Spur within MC limits; branches just before MC entry |
-| SK | 14988.4 ✓ | 15135.7 ✓ | 3 ✓ | Station house siding; 147.3 ft; exit = entry + siding |
-| HC | 18121.4 ✓ | 18285.3 ✓ | 3 ✓ | Terminal service track; 163.9 ft |
+| WP | 0 ✓ | — | — | Origin / terminus |
+| KIEL | 62.8 ✓ | null | 2 ✓ | Industrial switchback; exit not measured |
+| OHARAS_LF | 79.6 ✓ | — | 2 ✓ | Simple spur |
+| OHARAS_CS | 79.6 ✓ | — | 1 ✓ | Co-located with LF; coal delivery 1 spot |
+| XP | 541.7 ✓ | 637.2 ✓ | 15 ✓ | Long station limits; 693 ft siding |
+| QM1 | 670.5 ✓ | — | 2 ✓ | Spur within XP limits; switchback |
+| BB | 739.9 ✓ | 776.8 ✓ | 6 ✓ | Switchback; 274 ft siding |
+| JC | 1029.9 ✓ | 1129.6 ✓ | 16 ✓ | NOT a switchback; passing siding 723 ft |
+| TIMBER | 1303.0 ✓ | — | 3 ✓ | Within JC limits; on JC reversing lead (physically within MC station limits) |
+| MC | 1228.2 ✓ | 1318.5 ✓ | 11 ✓ | Switchback; 480 ft siding; exit trusted from @MC_EXIT ref point |
+| QM2 | 1256.7 ✓ | — | 2 ✓ | Spur within MC limits |
+| SK | 1998.9 ✓ | 2043.8 ✓ | 7 ✓ | Switchback; 308 ft siding |
+| HC | 2496.6 ✓ | — | 7 ✓ | North terminus; service siding 340 ft |
 
 **Remaining open items:**
-- MC `milepost_exit` — requires topology analysis to locate the main-to-passing-track switch MP
-- JC `siding_length_cars` — service track length not yet in export
+- MC `milepost_exit` topology confirm — value 1318.5 trusted from @MC_EXIT reference point; two-switch geometry not yet surveyed
 - KIEL `milepost_exit` — industrial switchback exit not measured
+- JC service track length — for Yardmaster display only; not needed for timetable

@@ -37,7 +37,9 @@ Likely refinements:
 
 ## Priority 2 — XTrkCAD data survey
 
-**2026-06-13 (updated export):** `nye_layout_data.json` re-exported with structural schema changes and corrected MP values. All changes synced into timetable.json, schedule.json, NYE_StringTable.svg, and yard.json. See `docs/XTRKCAD_DATA_REQUIREMENTS.md`.
+**2026-06-14 (export bug fixes):** `nye_layout_data.json` re-exported. Milepost unit corrected throughout — all timetable.json mileposts are now **layout inches (MP × 12)**, not prototype feet. JC confirmed 16-car passing siding (was export layer bug). QM1 Coke/Lead track lengths resolved. yard.json updated to v1.2 (track_ids corrected, Yard Lead added). NYE_StringTable.svg regenerated. track_schematic.svg and XTRKCAD_DATA_REQUIREMENTS.md updated.
+
+**2026-06-13 (updated export):** `nye_layout_data.json` re-exported with structural schema changes. See `docs/XTRKCAD_DATA_REQUIREMENTS.md`.
 
 **Schema changes in 2026-06-13 export:**
 - Stations: now have `milepost_entry` + `milepost_exit` pre-computed (no longer derive exit from entry + siding length)
