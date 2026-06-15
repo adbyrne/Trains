@@ -41,9 +41,14 @@ def fmt12(t):
 
 
 def train_schedule(train):
-    """Return dict: location_id → {arrive, depart, note}."""
+    """Return dict: location_id → {arrive, depart, note, terminal}."""
     return {
-        s["location"]: {"arrive": s.get("arrive"), "depart": s.get("depart"), "note": s.get("note")}
+        s["location"]: {
+            "arrive": s.get("arrive"),
+            "depart": s.get("depart"),
+            "note": s.get("note"),
+            "terminal": s.get("terminal", False),
+        }
         for s in train.get("schedule", [])
     }
 
@@ -55,10 +60,11 @@ def time_cell(stop):
     arr = fmt12(stop.get("arrive"))
     dep = fmt12(stop.get("depart"))
     note = stop.get("note") or ""
+    terminal = stop.get("terminal", False)
     parts = []
     if arr:
         parts.append(f'<div class="arr">{arr}</div>')
-    if dep:
+    if dep and not terminal:
         parts.append(f'<div class="dep">{dep}</div>')
     if note:
         short = note[:45] + ("…" if len(note) > 45 else "")
@@ -116,11 +122,12 @@ td.cls-break, th.cls-break { border-right: 2px solid #666 !important; }
 .st-name { font-weight: bold; font-size: 8.5pt; }
 .st-id   { font-size: 7pt; color: #666; }
 .st-type { font-size: 7pt; color: #333; }
-.st-mp   { font-size: 6.5pt; color: #999; }
 .st-sid  { font-size: 6.5pt; color: #666; }
 .st-flag { color: #8b0000; font-weight: bold; }
 .st-sb   { color: #8b0000; font-size: 7.5pt; }
 .th-sta  { background: #e8e8e0; text-align: center; font-size: 8pt; font-weight: bold; }
+.th-mp   { background: #e8e8e0; text-align: center; font-size: 7pt; font-weight: bold; width: 40px; }
+.mp-col  { text-align: center; font-size: 7pt; color: #888; white-space: nowrap; vertical-align: middle; min-width: 36px; }
 /* Time cells */
 .time-cell { text-align: center; white-space: nowrap; min-width: 36px; }
 .time-cell .arr  { font-size: 7.5pt; color: #555; }
@@ -133,7 +140,7 @@ tr.ind-sub .st-col {
   padding-left: 18px; font-size: 7.5pt; color: #666; font-style: italic;
 }
 tr.ind-onl td { background: #f8f8f4; }
-tr.ind-onl .st-col { font-size: 7.5pt; font-style: italic; color: #777; }
+tr.ind-onl .st-col { font-size: 7.5pt; color: #444; }
 /* Legend */
 .legend { font-size: 7.5pt; color: #555; margin-top: 4px; }
 @media print {
@@ -230,15 +237,16 @@ def generate_nls(tt):
     R.append("<tr>")
     R.append(f'<th colspan="{len(nb)}" class="dir-nb">← NORTHWARD</th>')
     R.append('<th class="th-sta">STATIONS</th>')
+    R.append('<th class="th-mp">MP</th>')
     R.append(f'<th colspan="{len(sb)}" class="dir-sb">SOUTHWARD →</th>')
     R.append("</tr>")
 
     # Class grouping row
     R.append("<tr>")
     for cls, group in nb_groups:
-        extra = ' cls-break' if True else ''  # always break at group boundary
         R.append(f'<th colspan="{len(group)}" class="cls-hdr cls{cls} cls-break">{CLS_LABEL[cls]}</th>')
     R.append('<th class="th-sta"></th>')
+    R.append('<th class="th-mp"></th>')
     for cls, group in sb_groups:
         R.append(f'<th colspan="{len(group)}" class="cls-hdr cls{cls} cls-break">{CLS_LABEL[cls]}</th>')
     R.append("</tr>")
@@ -250,6 +258,7 @@ def generate_nls(tt):
         R.append(f'<th class="th-train{brk}"><div class="tn">No.{t["number"]}</div>'
                  f'<div class="ts">{SVC_SHORT.get(t["service"], t["service"])}</div></th>')
     R.append('<th class="th-sta"></th>')
+    R.append('<th class="th-mp"></th>')
     for i, t in enumerate(sb):
         brk = ' cls-break' if i in sb_breaks else ''
         R.append(f'<th class="th-train{brk}"><div class="tn">No.{t["number"]}</div>'
@@ -277,9 +286,9 @@ def generate_nls(tt):
             siding = loc.get("siding_length_cars")
             flagged = loc.get("flagging_required", False)
             switchback = loc.get("switchback", False)
-            mp_str = (f"mp {mp:.1f}" if mp is not None else "")
+            mp_val = f"{mp:.1f}" if mp is not None else ""
             if mp_exit:
-                mp_str += f"–{mp_exit:.1f}"
+                mp_val += f"–{mp_exit:.1f}"
             inner = f'<div class="st-name">{_html.escape(name)}'
             if flagged:
                 inner += ' <span class="st-flag">F</span>'
@@ -288,11 +297,10 @@ def generate_nls(tt):
             inner += "</div>"
             if types_str:
                 inner += f'<div class="st-type">{types_str}</div>'
-            if mp_str:
-                inner += f'<div class="st-mp">{mp_str}</div>'
             if siding:
                 inner += f'<div class="st-sid">Siding {siding} cars</div>'
             R.append(f'<td class="st-col">{inner}</td>')
+            R.append(f'<td class="mp-col">{mp_val}</td>')
             for i, t in enumerate(sb):
                 cell = time_cell(sb_s[i].get(loc_id))
                 if i in sb_breaks:
@@ -308,6 +316,7 @@ def generate_nls(tt):
             spots = loc.get("car_spots", "?")
             sb_mark = " ↺" if loc.get("switchback") else ""
             R.append(f'<td class="st-col">↳ {_html.escape(name)}{sb_mark} · {spots} spots</td>')
+            R.append('<td class="mp-col"></td>')
             for _ in sb:
                 R.append("<td></td>")
             R.append("</tr>")
@@ -319,9 +328,10 @@ def generate_nls(tt):
             name = loc.get("name", loc_id)
             spots = loc.get("car_spots", "?")
             mp = loc.get("milepost")
-            mp_str = f" mp {mp:.1f}" if mp is not None else ""
+            mp_val = f"{mp:.1f}" if mp is not None else ""
             sb_mark = " ↺" if loc.get("switchback") else ""
-            R.append(f'<td class="st-col">{_html.escape(name)}{sb_mark}{mp_str} · {spots} spots</td>')
+            R.append(f'<td class="st-col">{_html.escape(name)}{sb_mark} · {spots} spots</td>')
+            R.append(f'<td class="mp-col">{mp_val}</td>')
             for _ in sb:
                 R.append("<td></td>")
             R.append("</tr>")
