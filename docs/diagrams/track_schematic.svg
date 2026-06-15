@@ -7,7 +7,7 @@
     JC=85.8(NOT a switchback — passing siding 16 cars, exit 94.1)  MC=102.4(switchback, exit 109.9, siding 11 cars)
     SK=166.6(switchback, exit 170.3, siding 7 cars)  HC=208.1(terminus, service 7 cars)
   Industries: KIEL=5.2, OHARAS_LF=6.6, OHARAS_CS=6.6 (near WP)
-              QM1=55.9 (within XP limits)  TIMBER=108.6 (within JC limits, on JC reversing lead)
+              QM1=55.9 (within XP limits)  TIMBER=108.6 (within MC limits, on MC reversing lead)
               QM2=104.7 (within MC limits)  QM3 ELIMINATED.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 380" width="950" height="380">
@@ -96,10 +96,8 @@
   <!-- Yard labels -->
   <text x="75" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">WP</text>
   <text x="75" y="179" text-anchor="middle" font-size="8.5" fill="#444">Williamsport</text>
-  <text x="55" y="232" text-anchor="middle" font-size="7" fill="#666">← Freight yard</text>
-  <text x="55" y="241" text-anchor="middle" font-size="7" fill="#666">Passenger yard →</text>
-  <text x="75" y="250" text-anchor="middle" font-size="7.5" fill="#1b5e20">▸ Clearance point</text>
-  <text x="75" y="259" text-anchor="middle" font-size="7" fill="#888">Yard limits mp 0–2</text>
+  <text x="75" y="238" text-anchor="middle" font-size="7.5" fill="#1b5e20">▸ Clearance point</text>
+  <text x="75" y="249" text-anchor="middle" font-size="7" fill="#888">Yard limits mp 0–2</text>
 
   <!-- WP CYD badge -->
   <rect x="18" y="183" width="40" height="14" rx="2" fill="#2e7d32"/>
@@ -139,10 +137,8 @@
   <text x="280" y="165" text-anchor="middle" font-size="8.5" fill="#444">Xina Pass</text>
   <rect x="257" y="183" width="46" height="17" rx="2" fill="#1a237e"/>
   <text x="280" y="195" text-anchor="middle" font-size="7.5" fill="white">Register · CYD</text>
-  <text x="245" y="217" font-size="7" fill="#888">mp 45.1 · 15 cars</text>
+  <text x="280" y="217" text-anchor="middle" font-size="7" fill="#888">mp 45–53</text>
 
-  <!-- Block limit label WP–XP -->
-  <text x="196" y="175" text-anchor="middle" font-size="6.5" fill="#555" font-style="italic">◄── Block (mp 0 – XP south switch) ──►</text>
 
   <!-- ============================================================ -->
   <!-- Quilly Mine #1 — spur within XP limits                      -->
@@ -172,13 +168,12 @@
   <text x="397" y="165" text-anchor="middle" font-size="8.5" fill="#444">Becs Bend</text>
   <rect x="374" y="183" width="44" height="17" rx="2" fill="#2e7d32"/>
   <text x="397" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="380" y="217" font-size="7" fill="#888">mp 61.7 · 6 cars</text>
+  <text x="397" y="217" text-anchor="middle" font-size="7" fill="#888">mp 62–65</text>
 
   <!-- BB Switchback symbol -->
   <line x1="397" y1="200" x2="397" y2="235" stroke="#8b0000" stroke-width="2"/>
   <line x1="387" y1="235" x2="407" y2="235" stroke="#8b0000" stroke-width="2"/>
   <polygon points="393,231 387,235 393,239" fill="#8b0000"/>
-  <text x="415" y="233" font-size="7.5" fill="#8b0000">switchback</text>
 
   <!-- ============================================================ -->
   <!-- JC — Jacks Creek (NOT a switchback — passing siding 16 cars) -->
@@ -200,12 +195,7 @@
   <text x="512" y="165" text-anchor="middle" font-size="8.5" fill="#444">Jacks Creek</text>
   <rect x="489" y="183" width="44" height="17" rx="2" fill="#2e7d32"/>
   <text x="512" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="495" y="217" font-size="7" fill="#888">mp 85.8 · 16 cars</text>
-  <!-- Timber Ltd within JC limits (on JC reversing lead, mp 108.6) -->
-  <line x1="522" y1="200" x2="522" y2="240" stroke="#555" stroke-width="1.5"/>
-  <line x1="507" y1="240" x2="537" y2="240" stroke="#555" stroke-width="1.5"/>
-  <text x="530" y="255" font-size="7" fill="#666">Timber Ltd</text>
-  <text x="530" y="264" font-size="7" fill="#666">mp 108.6 (JC lead)</text>
+  <text x="512" y="217" text-anchor="middle" font-size="7" fill="#888">mp 86–94</text>
 
   <!-- ============================================================ -->
   <!-- MC — Michelles Cove (Switchback — two-switch geometry, exit TBD) -->
@@ -227,19 +217,25 @@
   <text x="652" y="165" text-anchor="middle" font-size="8.5" fill="#444">Michelles Cove</text>
   <rect x="628" y="183" width="48" height="17" rx="2" fill="#2e7d32"/>
   <text x="652" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="635" y="217" font-size="7" fill="#888">mp 102.4 · exit 109.9 · 11 cars</text>
+  <text x="652" y="217" text-anchor="middle" font-size="7" fill="#888">mp 102–110</text>
 
   <!-- MC Switchback symbol -->
   <line x1="652" y1="200" x2="652" y2="235" stroke="#8b0000" stroke-width="2"/>
   <line x1="642" y1="235" x2="662" y2="235" stroke="#8b0000" stroke-width="2"/>
   <polygon points="648,231 642,235 648,239" fill="#8b0000"/>
-  <text x="672" y="233" font-size="7.5" fill="#8b0000">switchback</text>
 
-  <!-- Quilly Mine #2 — spur within MC limits -->
-  <line x1="635" y1="200" x2="635" y2="253" stroke="#555" stroke-width="1.5"/>
-  <line x1="620" y1="253" x2="650" y2="253" stroke="#555" stroke-width="1.5"/>
-  <polygon points="626,249 620,253 626,257" fill="#555"/>
-  <text x="635" y="265" text-anchor="middle" font-size="7" fill="#666">QM#2 ↺</text>
+  <!-- Quilly Mine #2 — spur within MC limits (south switch) -->
+  <line x1="635" y1="200" x2="635" y2="248" stroke="#555" stroke-width="1.5"/>
+  <line x1="620" y1="248" x2="650" y2="248" stroke="#555" stroke-width="1.5"/>
+  <polygon points="626,244 620,248 626,252" fill="#555"/>
+  <text x="635" y="261" text-anchor="middle" font-size="7" fill="#666">QM#2 ↺</text>
+
+  <!-- Timber Ltd — spur within MC limits (north end, mp 108.6) -->
+  <line x1="679" y1="200" x2="679" y2="248" stroke="#555" stroke-width="1.5"/>
+  <line x1="665" y1="248" x2="693" y2="248" stroke="#555" stroke-width="1.5"/>
+  <polygon points="671,244 665,248 671,252" fill="#555"/>
+  <text x="695" y="246" font-size="7" fill="#666">Timber Ltd ↺</text>
+  <text x="695" y="256" font-size="7" fill="#666">mp 108.6</text>
 
   <!-- ============================================================ -->
   <!-- SK — Stans Knob (Switchback)                                -->
@@ -261,13 +257,12 @@
   <text x="722" y="165" text-anchor="middle" font-size="8.5" fill="#444">Stans Knob</text>
   <rect x="698" y="183" width="48" height="17" rx="2" fill="#2e7d32"/>
   <text x="722" y="195" text-anchor="middle" font-size="7.5" fill="white">CYD</text>
-  <text x="705" y="217" font-size="7" fill="#888">mp 166.6 · 7 cars</text>
+  <text x="722" y="217" text-anchor="middle" font-size="7" fill="#888">mp 167–170</text>
 
   <!-- SK Switchback symbol -->
   <line x1="722" y1="200" x2="722" y2="235" stroke="#8b0000" stroke-width="2"/>
   <line x1="712" y1="235" x2="732" y2="235" stroke="#8b0000" stroke-width="2"/>
   <polygon points="718,231 712,235 718,239" fill="#8b0000"/>
-  <text x="740" y="233" font-size="7.5" fill="#8b0000">switchback</text>
 
   <!-- ============================================================ -->
   <!-- Between SK and HC — no industries (QM3 eliminated; Timber within JC) -->
