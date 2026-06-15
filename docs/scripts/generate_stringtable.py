@@ -210,6 +210,8 @@ def generate():
              and not l.get("within_limits_of")]
 
     # ── station vertical guides + rotated headers ─────────────────────────────
+    mp_row = []   # (x, label) for horizontal MP row rendered below headers
+
     for loc in guide:
         lid = loc["id"]
         if lid == "WP_YARD":
@@ -223,19 +225,25 @@ def generate():
         ly = PAD_T - 8
         svg.text(xp + 2, ly, lid, anchor="start", size=10,
                  weight="bold", fill=TITLE_FG, rotate=-55)
-        mp_lbl = f"mp {loc['milepost']:.0f}"
+        # collect MP value for horizontal row
+        mp_val = f"{loc['milepost']:.0f}"
         if loc.get("milepost_exit"):
-            mp_lbl += f"–{loc['milepost_exit']:.0f}"
-        svg.text(xp + 2, ly + 14, mp_lbl, anchor="start", size=7,
-                 fill=LBL_FG, rotate=-55)
+            mp_val += f"–{loc['milepost_exit']:.0f}"
+            mp_row_x = X((loc["milepost"] + loc["milepost_exit"]) / 2)
+        else:
+            mp_row_x = xp
+        mp_row.append((mp_row_x, mp_val))
 
     # WP_YARD guide + header
     svg.line(wp_yard_x, plot_top, wp_yard_x, plot_top + plot_h, STN_LINE, 1.0)
     ly = PAD_T - 8
     svg.text(wp_yard_x + 2, ly, "WP_YARD", anchor="start", size=10,
              weight="bold", fill=TITLE_FG, rotate=-55)
-    svg.text(wp_yard_x + 2, ly + 14, "mp 0", anchor="start", size=7,
-             fill=LBL_FG, rotate=-55)
+    mp_row.append((wp_yard_x, "0"))
+
+    # Horizontal MP row — small non-rotated labels just above the plot boundary
+    for (rx, rlbl) in mp_row:
+        svg.text(rx, plot_top - 3, rlbl, anchor="middle", size=6.5, fill="#aaaaaa")
 
     # Long-siding exit guides (dashed) — XP and any future long sidings
     for loc in guide:
@@ -363,6 +371,11 @@ def generate():
                   and mp_exit and abs(ax - dx) > 1):
                 # Switchback with arr==dep (zero-dwell run-around): thin connector
                 svg.line(ax, Y(arr), dx, Y(dep), clr, W_THIN, dash="2,2")
+
+            elif dep is not None and arr is None and abs(ax - dx) > 1:
+                # Pass-through: only dep recorded at station with mp_exit (long siding
+                # or switchback). Connect entry side to exit side at dep time.
+                svg.line(ax, Y(dep), dx, Y(dep), clr, W_THIN, dash="3,2")
 
             # Meet dot
             if meet_no(note):
