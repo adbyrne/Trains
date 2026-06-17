@@ -68,7 +68,6 @@ Likely refinements:
 | Location | Missing data |
 |----------|-------------|
 | MC | Topology confirm — `milepost_exit` value (9570.3) trusted from @MC_EXIT reference point but two-switch geometry not yet surveyed |
-| JC | Service track length (for Yardmaster, not timetable) |
 | KIEL | `milepost_exit` — industrial switchback exit not measured |
 | WP RUN track | `length_ft` not in export |
 | QM1 Coke + Lead | `length_ft = 0` in export (note placement bug — do not use) |

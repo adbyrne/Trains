@@ -233,4 +233,5 @@ The schematic is intended for three uses (design decisions deferred):
 **Remaining open items:**
 - MC `milepost_exit` topology confirm — value 109.9 trusted from @MC_EXIT reference point; two-switch geometry not yet surveyed
 - KIEL `milepost_exit` — industrial switchback exit not measured
-- JC service track length — for Yardmaster display only; not needed for timetable
+
+**Resolved (2026-06-17):** JC has no house/service track (`house_track_ft`/`house_track_cars` confirmed null in export) — only the 16-car passing siding. This was previously miscategorized as missing data; it's a confirmed absence, not an unmeasured value.
