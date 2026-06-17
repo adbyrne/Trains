@@ -53,6 +53,32 @@ def train_schedule(train):
     }
 
 
+def ampm_label(t):
+    """'07:10' -> 'A.M.', '15:45' -> 'P.M.'. '' for None."""
+    if not t:
+        return ""
+    return "A.M." if int(t[:2]) < 12 else "P.M."
+
+
+def col_ampm(stations, sched):
+    """Return (first, last) AM/PM labels for a train's schedule, scanning
+    stations top-to-bottom (WP->HC). 'first' is the topmost listed time in
+    the column, 'last' the bottommost — independent of running direction,
+    since NB and SB share the same station row order."""
+    first_t = last_t = None
+    for st in stations:
+        stop = sched.get(st["id"])
+        if not stop:
+            continue
+        t = stop.get("depart") or stop.get("arrive")
+        if not t:
+            continue
+        if first_t is None:
+            first_t = t
+        last_t = t
+    return ampm_label(first_t), ampm_label(last_t)
+
+
 def time_cell(stop):
     """Return <td> HTML for a schedule stop (or blank if None)."""
     if stop is None:
@@ -113,6 +139,11 @@ table.ett th, table.ett td {
 .cls3 { background: #e8ead8; }
 /* Thick right border marks end of each class group */
 td.cls-break, th.cls-break { border-right: 2px solid #666 !important; }
+/* AM/PM banner rows */
+.ampm-row th, .ampm-row td {
+  background: #f0f0ea; text-align: center; font-size: 7pt;
+  font-weight: bold; color: #444; padding: 1px 2px;
+}
 /* Train header cells */
 .th-train { background: #eef0f8; text-align: center; vertical-align: bottom; padding: 3px 2px; }
 .th-train .tn { font-weight: bold; font-size: 9pt; }
@@ -198,8 +229,13 @@ def generate_nls(tt):
         oi += 1
 
     # Trains
+    # NB columns sit to the left of the station column, SB to the right.
+    # Convention: the fastest/highest-priority class is closest to the
+    # station column on both sides — so SB sorts class ascending (Class I
+    # first, adjacent to stations) and NB sorts class descending (Class I
+    # last, adjacent to stations).
     trains = nls["trains"]
-    nb = sorted([t for t in trains if t["direction"] == "N"], key=lambda t: (t["class"], int(t["number"])))
+    nb = sorted([t for t in trains if t["direction"] == "N"], key=lambda t: (-t["class"], int(t["number"])))
     sb = sorted([t for t in trains if t["direction"] == "S"], key=lambda t: (t["class"], int(t["number"])))
     nb_s = [train_schedule(t) for t in nb]
     sb_s = [train_schedule(t) for t in sb]
@@ -227,6 +263,10 @@ def generate_nls(tt):
 
     nb_breaks = _break_indices(nb_groups)
     sb_breaks = _break_indices(sb_groups)
+
+    # Per-column AM/PM banners (top = first listed time, bottom = last)
+    nb_ampm = [col_ampm(stations, s) for s in nb_s]
+    sb_ampm = [col_ampm(stations, s) for s in sb_s]
 
     R = []  # HTML rows
 
@@ -263,6 +303,18 @@ def generate_nls(tt):
         brk = ' cls-break' if i in sb_breaks else ''
         R.append(f'<th class="th-train{brk}"><div class="tn">No.{t["number"]}</div>'
                  f'<div class="ts">{SVC_SHORT.get(t["service"], t["service"])}</div></th>')
+    R.append("</tr>")
+
+    # AM/PM top banner — first listed time per column
+    R.append('<tr class="ampm-row">')
+    for i, t in enumerate(nb):
+        brk = ' cls-break' if i in nb_breaks else ''
+        R.append(f'<th class="ampm-cell{brk}">{nb_ampm[i][0]}</th>')
+    R.append('<th class="th-sta"></th>')
+    R.append('<th class="th-mp"></th>')
+    for i, t in enumerate(sb):
+        brk = ' cls-break' if i in sb_breaks else ''
+        R.append(f'<th class="ampm-cell{brk}">{sb_ampm[i][0]}</th>')
     R.append("</tr>")
 
     R.append("</thead><tbody>")
@@ -335,6 +387,18 @@ def generate_nls(tt):
             for _ in sb:
                 R.append("<td></td>")
             R.append("</tr>")
+
+    # AM/PM bottom banner — last listed time per column
+    R.append('<tr class="ampm-row">')
+    for i, t in enumerate(nb):
+        brk = ' cls-break' if i in nb_breaks else ''
+        R.append(f'<td class="ampm-cell{brk}">{nb_ampm[i][1]}</td>')
+    R.append('<td class="st-col"></td>')
+    R.append('<td class="mp-col"></td>')
+    for i, t in enumerate(sb):
+        brk = ' cls-break' if i in sb_breaks else ''
+        R.append(f'<td class="ampm-cell{brk}">{sb_ampm[i][1]}</td>')
+    R.append("</tr>")
 
     R.append("</tbody>")
 
