@@ -256,7 +256,7 @@ _Derived from Timetable No. 4 and NY&E operating history._
 
 ### Switchback OS Rule
 
-Switchback stations are BB (Becs Bend), JC (Jacks Creek), MC (Michelles Cove), and SK (Stans Knob). WP and HC (termini) and XP (Xina Pass) are not switchback stations; nor are industries (Quilly Mines QM1/QM2, Kiel Co, O'Haras, Timber Ltd). At switchback stations the train reverses and swaps engine/caboose positions before continuing. The OS rule depends on whether the train has work at that location:
+Switchback stations are BB (Becs Bend), MC (Michelles Cove), and SK (Stans Knob). WP and HC (termini), XP (Xina Pass), and JC (Jacks Creek, a 16-car passing siding) are not switchback stations; nor are industries (Quilly Mines QM1/QM2, Kiel Co, O'Haras, Timber Ltd). At switchback stations the train reverses and swaps engine/caboose positions before continuing. The OS rule depends on whether the train has work at that location:
 
 - **No work:** Train is **not OS until engine and caboose are reconnected** after the reversal. Station agent submits the OS report at that point.
 - **Work to be done:** Train OSs **on arrival** (before reversal). Train must **take the siding immediately on arrival**. OS is not re-submitted after reconnection.
