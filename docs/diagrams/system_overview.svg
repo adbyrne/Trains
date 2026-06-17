@@ -28,7 +28,7 @@
   <text x="90" y="105" text-anchor="middle" font-size="9" fill="#a5d6a7">RPi5 Display 1 (HDMI)</text>
   <text x="90" y="119" text-anchor="middle" font-size="9" fill="#a5d6a7">Dispatcher's room</text>
   <text x="90" y="133" text-anchor="middle" font-size="8" fill="#81c784">OS log · TO issuance</text>
-  <text x="90" y="147" text-anchor="middle" font-size="8" fill="#81c784">Clearances · Signal arms</text>
+  <text x="90" y="147" text-anchor="middle" font-size="8" fill="#81c784">Clearances · TO &amp; block signals</text>
 
   <!-- HDMI connection line -->
   <line x1="175" y1="100" x2="190" y2="100" stroke="#333" stroke-width="2.5"/>
@@ -82,7 +82,7 @@
   <text x="99" y="246" text-anchor="middle" font-size="8" fill="#ffccbc">ESP32 CYD</text>
   <text x="99" y="259" text-anchor="middle" font-size="7.5" fill="#ffccbc">South Terminus</text>
   <text x="99" y="271" text-anchor="middle" font-size="7.5" fill="#ffccbc">C&amp;O Junction</text>
-  <text x="99" y="285" text-anchor="middle" font-size="8" fill="#ff8a65">Clearance</text>
+  <text x="99" y="285" text-anchor="middle" font-size="7.5" fill="#ff8a65">Clearance · Block</text>
   <text x="99" y="294" text-anchor="middle" font-size="7" fill="#ffab91">OS · Orders</text>
 
   <!-- XP — Register Station (not a switchback) -->
@@ -91,7 +91,7 @@
   <text x="224" y="232" text-anchor="middle" font-size="8.5" fill="#c5cae9">Xina Pass</text>
   <text x="224" y="246" text-anchor="middle" font-size="8" fill="#c5cae9">ESP32 CYD</text>
   <text x="224" y="259" text-anchor="middle" font-size="7.5" fill="#c5cae9">Register Station</text>
-  <text x="224" y="271" text-anchor="middle" font-size="7.5" fill="#c5cae9"> </text>
+  <text x="224" y="271" text-anchor="middle" font-size="7.5" fill="#c5cae9">Block Signal</text>
   <text x="224" y="285" text-anchor="middle" font-size="8" fill="#ff8a65">TO Signal · CL</text>
   <text x="224" y="294" text-anchor="middle" font-size="7" fill="#ffab91">OS · Orders</text>
 
@@ -105,13 +105,13 @@
   <text x="349" y="285" text-anchor="middle" font-size="8" fill="#ff8a65">TO Signal</text>
   <text x="349" y="294" text-anchor="middle" font-size="7" fill="#a5d6a7">OS · Orders</text>
 
-  <!-- JC — Switchback with TO Signal -->
+  <!-- JC — Standard with TO Signal (NOT a switchback — 16-car passing siding) -->
   <rect x="417" y="198" width="115" height="100" rx="5" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
-  <text x="474" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="white">JC  ↺</text>
+  <text x="474" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="white">JC</text>
   <text x="474" y="232" text-anchor="middle" font-size="8.5" fill="#c8e6c9">Jacks Creek</text>
   <text x="474" y="246" text-anchor="middle" font-size="8" fill="#c8e6c9">ESP32 CYD</text>
   <text x="474" y="259" text-anchor="middle" font-size="7.5" fill="#c8e6c9">Standard Station</text>
-  <text x="474" y="271" text-anchor="middle" font-size="7.5" fill="#c8e6c9">↺ Switchback</text>
+  <text x="474" y="271" text-anchor="middle" font-size="7.5" fill="#c8e6c9">16-car passing siding</text>
   <text x="474" y="285" text-anchor="middle" font-size="8" fill="#ff8a65">TO Signal</text>
   <text x="474" y="294" text-anchor="middle" font-size="7" fill="#a5d6a7">OS · Orders</text>
 
@@ -146,7 +146,7 @@
   <text x="849" y="294" text-anchor="middle" font-size="7" fill="#ffab91">OS · Orders</text>
 
   <!-- ============================================================ -->
-  <!-- ROW 3: YM Terminal, Engineer Phones, Owner, DCS51            -->
+  <!-- ROW 3: YM Terminal, Engineer Phones/Throttles, Owner, DCS51            -->
   <!-- ============================================================ -->
 
   <!-- Yardmaster Terminal -->
@@ -158,11 +158,11 @@
   <text x="117" y="390" text-anchor="middle" font-size="9" fill="#ffccbc">WP yard limits only</text>
   <text x="117" y="404" text-anchor="middle" font-size="8" fill="#ffe0b2">Construct · Deconstruct consists</text>
   <text x="117" y="418" text-anchor="middle" font-size="8" fill="#ffe0b2">C&amp;O interchange at INTX track</text>
-  <text x="117" y="430" text-anchor="middle" font-size="7.5" fill="#ffccbc">[In development — Phase 2.0]</text>
+  <text x="117" y="430" text-anchor="middle" font-size="7.5" fill="#ffccbc">[Software live — RPi3 kiosk pending]</text>
 
-  <!-- Engineer Phones -->
+  <!-- Engineer Phones/Throttles -->
   <rect x="232" y="320" width="195" height="115" rx="6" fill="#37474f" stroke="#263238" stroke-width="2"/>
-  <text x="329" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Engineer Phones</text>
+  <text x="329" y="341" text-anchor="middle" font-size="10.5" font-weight="bold" fill="white">Engineer Phones / Throttles</text>
   <line x1="242" y1="347" x2="417" y2="347" stroke="white" stroke-width="0.5" stroke-opacity="0.4"/>
   <text x="329" y="362" text-anchor="middle" font-size="9" fill="#b0bec5">Engine Driver App</text>
   <text x="329" y="376" text-anchor="middle" font-size="9" fill="#b0bec5">WiThrottle → JMRI :12090</text>
@@ -228,7 +228,7 @@
 
   <!-- Phase note -->
   <text x="475" y="514" text-anchor="middle" font-size="8.5" fill="#666" font-style="italic">
-    Phases 1–2 complete (infrastructure, station OS, TO orders, clearances, signal arms).
-    YM terminal software in development (Phase 2.0). Phases 3–6 planned (cameras, RFID, lighting, dispatcher assist).
+    Phases 1–2 complete (infrastructure, station OS, TO orders, clearances, TO &amp; block signals, YM terminal software).
+    RPi3 kiosk + block signal servo hardware install pending. Phases 3–6 planned (cameras, RFID, lighting, dispatcher assist).
   </text>
 </svg>
