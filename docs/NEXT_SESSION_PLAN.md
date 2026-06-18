@@ -1,6 +1,6 @@
 # Next Session Plan — NY&E Timetable & String Table
 
-_Updated 2026-06-08_
+_Updated 2026-06-18_
 
 ---
 
@@ -137,6 +137,39 @@ Backend (2.0a) then UI + RPi3 provisioning (2.0b).
 Hardware: RPi3-1 or RPi3-3 + ELECROW 7" (pk=106).
 
 See `IOTtrains/docs/YARDMASTER_DESIGN.md` for full spec.
+
+---
+
+## Priority 0 — rpi3-yard power supply (2026-06-18) — BLOCKS treating the YM terminal as reliable
+
+`rpi3-yard` showed intermittent under-voltage (`hwmon1: Undervoltage detected!` in dmesg, `vcgencmd get_throttled` = `0x50005` — under-voltage and throttling both *currently active*, not just historical). This caused the onboard WiFi chip's firmware load to fail outright on one boot (`brcmfmac: Downloaded RAM image is corrupted` → no `wlan0`). Owner swapped the power supply once already; the kiosk came up and displayed correctly afterward, but **`get_throttled` had not been re-verified as clean (`0x0`) before the session ended** — the apparent fix needs confirmation, not just "screen looks fine."
+
+- Check `vcgencmd get_throttled` after the owner's PSU/cable investigation — must read `0x0`
+- Suspects in order of likelihood: cable (voltage drop under load even with a good supply), supply undersized for RPi3 B+'s 5.1V/2.5A spec, shared/overloaded USB hub
+- Until confirmed clean: treat any SD card writes or long uptime on this device with suspicion — under-voltage can silently corrupt the SD card
+- Full debugging detail: `IOTtrains/docs/YARDMASTER_DESIGN.md` §9.9
+
+---
+
+## Priority 5a — rpi3-yard kiosk software — mostly done, two follow-ups (2026-06-18)
+
+Software provisioning completed and the kiosk dashboard (`/yard`) was visually confirmed rendering correctly on an HDMI monitor (live clock, departing trains, track board, C&O footer all populated). Full detail in `IOTtrains/docs/YARDMASTER_DESIGN.md` §9 (rewritten this session — the original plan assumed Bookworm/LXDE/X11; actual device is Debian 13 "trixie" with labwc/Wayland, several steps differed from the original plan and are now corrected in the doc).
+
+Remaining before this is fully closed:
+- **§9.6 Touch input verification** — can't test until the ELECROW touchscreen is physically attached (blocked on the CAD enclosure test print, see `YardmasterTerminal` CAD project)
+- **Screen-blanking under labwc is unverified** — `raspi-config nonint do_blanking 1` didn't visibly change any config file on this OS version; the old X11 `xset` trick doesn't apply to labwc/Wayland. Needs a real-display check (does the screen go dark after some idle time or not?) once the touchscreen is attached.
+- Power supply issue above (Priority 0) needs to be closed out — it could affect kiosk stability over long uptimes even though the dashboard rendered fine in the short term.
+
+---
+
+## Priority 6 — Role documentation with screenshots (2026-06-17)
+
+Better documentation for each operating role (Dispatcher, Yardmaster, Station Agent, etc.) — current
+docs (`NYE_OPERATIONS.md`) describe duties in prose only. Add screenshots of the actual dispatcher
+and YM terminal dialogs (TO issuance, consist build modals, block signal trigger, clearance forms
+once Session 2.3 lands) alongside the role descriptions so operators can see the real UI, not just
+read about it. No design decisions needed yet — scope (which dialogs, where the doc lives: new file
+vs. expanding NYE_OPERATIONS.md vs. the existing `controlsystem/` web tour) still to be decided.
 
 ---
 
