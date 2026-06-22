@@ -168,8 +168,8 @@ locomotive control.
 | F2 | Old dispatcher string table (Timetable No. 4) | Art. 1 | Exists (PDF) |
 | F3 | System block diagram — server, stations, YM terminal, phones, DCC | Art. 1 | `docs/diagrams/system_overview.svg` |
 | F4 | Dispatcher web app screenshot | Art. 1 | Exists (screenshot) |
-| F5 | Station CYD — clock + OS screens | Art. 1 | Needs photo or simulated screenshot |
-| F6 | Yardmaster terminal | Art. 1 | Design exists; screenshot when software complete |
+| F5 | Yardmaster terminal | Art. 1 | Exists (screenshot) |
+| F6 | Station CYD — clock + OS screens | Art. 1 | Exists (4 simulated mockups) |
 | F7 | Network topology diagram | Art. 2 | New SVG — planned |
 | F8 | CYD screen state machine | Art. 2 | New SVG — planned |
 | F9 | MQTT topic map (table) | Art. 2 | From architecture doc |
