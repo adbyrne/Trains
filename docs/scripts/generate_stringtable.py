@@ -169,13 +169,11 @@ def generate():
         return plot_top + (mn / 60.0) * PX_HR
 
     def stop_x(lid, mp, mp_exit, dirn, which):
-        """Pixel X for a stop's arrival or departure side.
-        Always: arrive=lower mp (left/WP side), depart=higher mp (right/HC side).
-        This makes arrive/depart read left-to-right for both NB and SB trains."""
+        """Pixel X for a stop — always the lower (WP-side) mp.
+        Dwells are drawn as flat vertical lines at the station's main guide."""
         if lid == "WP_YARD":
             return wp_yard_x
-        raw = (mp if which == "arr" else mp_exit) if mp_exit else mp
-        return X(raw if raw is not None else mp)
+        return X(mp)
 
     svg = SVG()
 
@@ -469,9 +467,6 @@ def generate():
     ly += 17
     svg.line(lx, ly + 4, lx + 22, ly + 4, "#555555", W_THIN)
     svg.text(lx + 26, ly + 7, "Schedule wait", anchor="start", size=9, fill=LBL_FG)
-    ly += 17
-    svg.line(lx, ly + 4, lx + 22, ly + 4, "#555555", W_THIN, dash="2,2")
-    svg.text(lx + 26, ly + 7, "Switchback move", anchor="start", size=9, fill=LBL_FG)
     ly += 22
 
     svg.text(lx, ly, "Marks:", anchor="start", size=9, weight="bold", fill=TITLE_FG)
