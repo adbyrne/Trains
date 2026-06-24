@@ -169,14 +169,12 @@ def generate():
         return plot_top + (mn / 60.0) * PX_HR
 
     def stop_x(lid, mp, mp_exit, dirn, which):
-        """Pixel X for a stop's arrival or departure side."""
+        """Pixel X for a stop's arrival or departure side.
+        Always: arrive=lower mp (left/WP side), depart=higher mp (right/HC side).
+        This makes arrive/depart read left-to-right for both NB and SB trains."""
         if lid == "WP_YARD":
             return wp_yard_x
-        if mp_exit:
-            raw = (mp if dirn == "N" else mp_exit) if which == "arr" \
-                  else (mp_exit if dirn == "N" else mp)
-        else:
-            raw = mp
+        raw = (mp if which == "arr" else mp_exit) if mp_exit else mp
         return X(raw if raw is not None else mp)
 
     svg = SVG()
@@ -342,7 +340,16 @@ def generate():
 
             # Travel diagonal from previous stop
             if prev_t is not None and prev_ax is not None and t_arr is not None:
-                svg.line(prev_ax, Y(prev_t), ax, Y(t_arr), clr, W_TRAVEL)
+                if t_arr < prev_t - 60:
+                    # Midnight crossing: split into two segments at Y=0/Y=plot_h boundary.
+                    # Interpolate where the line crosses midnight (t=1440 or t=0).
+                    span = (t_arr + 1440) - prev_t
+                    frac = (1440 - prev_t) / span if span else 0
+                    x_mid = prev_ax + (ax - prev_ax) * frac
+                    svg.line(prev_ax, Y(prev_t), x_mid, Y(1440), clr, W_TRAVEL)
+                    svg.line(x_mid, Y(0), ax, Y(t_arr), clr, W_TRAVEL)
+                else:
+                    svg.line(prev_ax, Y(prev_t), ax, Y(t_arr), clr, W_TRAVEL)
 
             # Dwell
             if arr is not None and dep is not None and dep > arr:
