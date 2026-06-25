@@ -1,6 +1,6 @@
 # Next Session Plan — NY&E Timetable & String Table
 
-_Updated 2026-06-18_
+_Updated 2026-06-25_
 
 ---
 
@@ -15,6 +15,19 @@ _Updated 2026-06-18_
 | QM3 eliminated from timetable + docs | ✅ Done |
 | Timber Ltd moved to JC siding | ✅ Done (mp TBD) |
 | All docs + README updated and pushed | ✅ Done |
+
+---
+
+## ✅ Done 2026-06-25
+
+| Item | State |
+|------|-------|
+| QM2 Coke trains No.151 (N) and No.152 (S) added to timetable.json | ✅ IOTtrains 123b15f |
+| ETT SB cell direction fixed (dep above arr for bottom-to-top reading) | ✅ Trains 57a0021 |
+| NYE_ETT_NLS.html + NYE_StringTable.svg regenerated | ✅ |
+| 157 tests passing | ✅ |
+| modelrr ETT/SVG files updated for gFTP upload | ✅ (gFTP upload still needed) |
+| Article 1 website references + review PDF 2026-06-25 | ✅ Trains 75e7224 |
 
 ---
 
