@@ -79,8 +79,12 @@ def col_ampm(stations, sched):
     return ampm_label(first_t), ampm_label(last_t)
 
 
-def time_cell(stop):
-    """Return <td> HTML for a schedule stop (or blank if None)."""
+def time_cell(stop, direction="N"):
+    """Return <td> HTML for a schedule stop (or blank if None).
+
+    NB (direction='N'): arr on top, dep below — reads top-to-bottom.
+    SB (direction='S'): dep on top, arr below — reads bottom-to-top.
+    """
     if stop is None:
         return '<td class="time-blank">—</td>'
     arr = fmt12(stop.get("arrive"))
@@ -88,10 +92,16 @@ def time_cell(stop):
     note = stop.get("note") or ""
     terminal = stop.get("terminal", False)
     parts = []
-    if arr:
-        parts.append(f'<div class="arr">{arr}</div>')
-    if dep and not terminal:
-        parts.append(f'<div class="dep">{dep}</div>')
+    if direction == "S":
+        if dep and not terminal:
+            parts.append(f'<div class="dep">{dep}</div>')
+        if arr:
+            parts.append(f'<div class="arr">{arr}</div>')
+    else:
+        if arr:
+            parts.append(f'<div class="arr">{arr}</div>')
+        if dep and not terminal:
+            parts.append(f'<div class="dep">{dep}</div>')
     if note:
         short = note[:45] + ("…" if len(note) > 45 else "")
         parts.append(f'<div class="note">{_html.escape(short)}</div>')
@@ -354,7 +364,7 @@ def generate_nls(tt):
             R.append(f'<td class="st-col">{inner}</td>')
             R.append(f'<td class="mp-col">{mp_val}</td>')
             for i, t in enumerate(sb):
-                cell = time_cell(sb_s[i].get(loc_id))
+                cell = time_cell(sb_s[i].get(loc_id), "S")
                 if i in sb_breaks:
                     cell = cell.replace('class="time-blank"', 'class="time-blank cls-break"', 1).replace('class="time-cell"', 'class="time-cell cls-break"', 1)
                 R.append(cell)
