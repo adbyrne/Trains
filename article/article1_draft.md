@@ -2,7 +2,7 @@
 
 *From ten years of paper-and-pencil dispatching to a distributed digital control system — the operations concept hasn't changed.*
 
-**By Allen D. Byrne and Claude (Anthropic AI)**
+**By Allen D. Byrne**
 
 *Draft — second pass, 2026-06-22. Word count target 3,000–3,500; current draft 3,360 words.*
 
